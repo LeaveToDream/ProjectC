@@ -9,12 +9,14 @@ int main (int argc, char* argv[]){
   printf("Hello World\n");
   while(i!='e'){
     printf("\n");
-    printf("Enter cmd (h to get help)\n");
+    printf("Chose what you want to do ('h' to get help \n or 'g' to game with a friend \n or 'r' to game alone \n or 'e' to exit :( )\n");
     printf(">>>");
     i = getCharClean();
     switch(i){
       case 'g' : game(); break;
       case 'h' : help(); break;
+      case 'r' : gamealone(); break; 
+      //r comme robot... #intelligence artificielle tout ça tout ça... (oui bah c'est bon hein, on ne critique pas !) 
       case 'e' : return 0 ;
       default : wrong(); break;
     }
