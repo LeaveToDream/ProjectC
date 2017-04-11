@@ -2,29 +2,38 @@
 #define BOARD
 
 typedef enum Pion Pion ;
-enum Pion {Blanc, Noir, None};
-
 typedef enum Level Level ;
-enum Level {EASY=7, NORMAL=9, HARDCORE=15};
-
+typedef enum Status Status ;
 typedef struct Board Board ;
+typedef struct Coord Coord ;
+
+enum Pion {None, White, Black};
+enum Level {EASY=7, NORMAL=9, HARDCORE=15};
+enum Status {Playing, White, Black, Draw}
+
 struct Board {
-  int taille;
+  int length;
   Pion** board;
+  Coord*** possibleMove;
 };
 
-typedef struct Coord Coord ;
 struct Coord {
   int x,y;
 };
 
-int main();
 Board init(Level level);
-int[]* possibleMove(int x, int y);
-int move(int x, int y);
-int resolve(int x, int y);
-int remove(int x, int y);
+Coord initCoord(int x, int y);
+void fillBoard(Board b);
+bool isInBoard(Board b, Coord c);
+void possibleMove(Board b, Coord c);
+bool isMovePossible(Board b, Coord p1, Coord p2);
+bool movePawn(Board b, Coord p1, Coord p2);
+void refreshPMAfterMove(Board b, Coord p);
+bool resolveMove(Board b, Coord p);
+bool removePawn(Board b, Coord p);
+void display(Board b);
+void freeBoard(Board b);
+void rules();
 
-void afficher();
 
 #endif
