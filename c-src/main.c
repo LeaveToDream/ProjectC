@@ -2,14 +2,14 @@
 #include <string.h>
 #include <stdbool.h>
 
-#include "main.h"
+#include "../c-head/main.h"
 
 int main (int argc, char* argv[]){
   char i;
   printf("Hello World\n");
   printf("Enter cmd (h to get help)\n");
   do{
-    printf("\n>>>");
+    printf(">>> ");
     i = getCharClean();
     switch(i){
       case 'g' : game(); break;
@@ -38,13 +38,6 @@ void game(){
   int playing = true ;
   printf("---Game--- \n");
   // Init the game board
-  while (playing) {
-    /* code */
-
-
-    playing = false ;
-  }
-
-
+  playAGame();
 
 }
