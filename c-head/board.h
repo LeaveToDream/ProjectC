@@ -30,7 +30,7 @@ void possibleMove(Board b, Coord c);
 bool isMovePossible(Board b, Coord p1, Coord p2);
 bool movePawn(Board b, Coord p1, Coord p2);
 void refreshPMAfterMove(Board b, Coord p);
-bool removePawn(Board b, Coord p);
+bool removePawn(Board* b, Coord p);
 void display(Board b);
 void freeBoard(Board b);
 

@@ -24,6 +24,13 @@ Board initBoard(Level level){
 
 
     b.length = n ;
+
+    //b.blackCount = (int *) malloc(sizeof(int));
+    //b.whiteCount = (int *) malloc(sizeof(int));
+
+    //*(b.blackCount) = 0 ;
+    //*(b.whiteCount) = 0 ;
+
     return b;
 }
 
@@ -157,7 +164,6 @@ void possibleMove(Board b, Coord c){
         // Shita
         if(isInBoard(b, initCoord(x, y+1)) && b.board[x][y+1]==enemy){ // On peut sauter au dessus
             b.possibleMove[c.x][c.y][i]=initCoord(x,y+2);
-            i++;
         }
         // Dab
     }
@@ -200,10 +206,18 @@ void refreshPMAfterMove(Board b, Coord p){
     // Dab
 }
 
-bool removePawn(Board b, Coord p){
-    if(b.board[p.x][p.y]!=None){
-        b.board[p.x][p.y]=None;
-        printf("Pawn removed from location %c%d\n", numberToLetter(p.x), p.y);
+bool removePawn(Board *b, Coord p){
+    //TODO Resolve count not being decreased.
+    if(b->board[p.x][p.y]!=None){
+        switch(b->board[p.x][p.y]){
+            case White :
+                (b->whiteCount)--;
+                break;
+            case Black :
+                (b->blackCount)--;
+        }
+        b->board[p.x][p.y]=None;
+        printf("Pawn eaten at location %c%d\n", numberToLetter(p.x), p.y);
         return true;
     }
     return false ;

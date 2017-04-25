@@ -8,9 +8,10 @@ enum Status {Playing, Bot, WhitePlayer, BlackPlayer, Draw};
 
 void playAGame();
 Status gamePvP(Board b);
-int playerTurn(Board b, Pawn side);
-Status resolveGame(Board b);
-bool resolveMove(Board b, Coord p);
+Level getDifficulty();
+Coord playerTurn(Board* b, Pawn side);
+Status resolveGame(Board* b, Coord c);
+bool resolveMove(Board* b, Coord p);
 void rules();
 char numberToLetter(int n);
 int letterToNumber(char c);
