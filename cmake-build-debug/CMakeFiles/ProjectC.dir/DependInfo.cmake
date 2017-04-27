@@ -7,12 +7,14 @@ set(CMAKE_DEPENDS_CHECK_C
   "C:/Users/John-i5m/CLionProjects/ProjectC/c-src/board.c" "C:/Users/John-i5m/CLionProjects/ProjectC/cmake-build-debug/CMakeFiles/ProjectC.dir/c-src/board.c.obj"
   "C:/Users/John-i5m/CLionProjects/ProjectC/c-src/find.c" "C:/Users/John-i5m/CLionProjects/ProjectC/cmake-build-debug/CMakeFiles/ProjectC.dir/c-src/find.c.obj"
   "C:/Users/John-i5m/CLionProjects/ProjectC/c-src/game.c" "C:/Users/John-i5m/CLionProjects/ProjectC/cmake-build-debug/CMakeFiles/ProjectC.dir/c-src/game.c.obj"
+  "C:/Users/John-i5m/CLionProjects/ProjectC/c-src/gui.c" "C:/Users/John-i5m/CLionProjects/ProjectC/cmake-build-debug/CMakeFiles/ProjectC.dir/c-src/gui.c.obj"
   "C:/Users/John-i5m/CLionProjects/ProjectC/c-src/main.c" "C:/Users/John-i5m/CLionProjects/ProjectC/cmake-build-debug/CMakeFiles/ProjectC.dir/c-src/main.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
+  "../c-lib/SDL2/include/SDL2"
   )
 
 # Targets to which this target links.

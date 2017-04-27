@@ -207,7 +207,6 @@ void refreshPMAfterMove(Board b, Coord p){
 }
 
 bool removePawn(Board *b, Coord p){
-    //TODO Resolve count not being decreased.
     if(b->board[p.x][p.y]!=None){
         switch(b->board[p.x][p.y]){
             case White :

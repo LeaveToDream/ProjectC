@@ -5,16 +5,61 @@ CMakeFiles/ProjectC.dir/c-src/board.c.obj
  C:/Users/John-i5m/CLionProjects/ProjectC/c-head/board.h
  C:/Users/John-i5m/CLionProjects/ProjectC/c-head/game.h
  C:/Users/John-i5m/CLionProjects/ProjectC/c-src/board.c
-CMakeFiles/ProjectC.dir/c-src/findNoRegex.c.obj
+CMakeFiles/ProjectC.dir/c-src/find.c.obj
  C:/Users/John-i5m/CLionProjects/ProjectC/c-head/board.h
- C:/Users/John-i5m/CLionProjects/ProjectC/c-head/findNoRegex.h
+ C:/Users/John-i5m/CLionProjects/ProjectC/c-head/find.h
  C:/Users/John-i5m/CLionProjects/ProjectC/c-head/game.h
- C:/Users/John-i5m/CLionProjects/ProjectC/c-src/findNoRegex.c
+ C:/Users/John-i5m/CLionProjects/ProjectC/c-src/find.c
 CMakeFiles/ProjectC.dir/c-src/game.c.obj
  C:/Users/John-i5m/CLionProjects/ProjectC/c-head/board.h
- C:/Users/John-i5m/CLionProjects/ProjectC/c-head/findNoRegex.h
+ C:/Users/John-i5m/CLionProjects/ProjectC/c-head/find.h
  C:/Users/John-i5m/CLionProjects/ProjectC/c-head/game.h
  C:/Users/John-i5m/CLionProjects/ProjectC/c-src/game.c
+CMakeFiles/ProjectC.dir/c-src/gui.c.obj
+ ../c-lib/SDL2/include/SDL2/SDL.h
+ ../c-lib/SDL2/include/SDL2/SDL_assert.h
+ ../c-lib/SDL2/include/SDL2/SDL_atomic.h
+ ../c-lib/SDL2/include/SDL2/SDL_audio.h
+ ../c-lib/SDL2/include/SDL2/SDL_blendmode.h
+ ../c-lib/SDL2/include/SDL2/SDL_clipboard.h
+ ../c-lib/SDL2/include/SDL2/SDL_config.h
+ ../c-lib/SDL2/include/SDL2/SDL_cpuinfo.h
+ ../c-lib/SDL2/include/SDL2/SDL_endian.h
+ ../c-lib/SDL2/include/SDL2/SDL_error.h
+ ../c-lib/SDL2/include/SDL2/SDL_events.h
+ ../c-lib/SDL2/include/SDL2/SDL_filesystem.h
+ ../c-lib/SDL2/include/SDL2/SDL_gamecontroller.h
+ ../c-lib/SDL2/include/SDL2/SDL_gesture.h
+ ../c-lib/SDL2/include/SDL2/SDL_haptic.h
+ ../c-lib/SDL2/include/SDL2/SDL_hints.h
+ ../c-lib/SDL2/include/SDL2/SDL_joystick.h
+ ../c-lib/SDL2/include/SDL2/SDL_keyboard.h
+ ../c-lib/SDL2/include/SDL2/SDL_keycode.h
+ ../c-lib/SDL2/include/SDL2/SDL_loadso.h
+ ../c-lib/SDL2/include/SDL2/SDL_log.h
+ ../c-lib/SDL2/include/SDL2/SDL_main.h
+ ../c-lib/SDL2/include/SDL2/SDL_messagebox.h
+ ../c-lib/SDL2/include/SDL2/SDL_mouse.h
+ ../c-lib/SDL2/include/SDL2/SDL_mutex.h
+ ../c-lib/SDL2/include/SDL2/SDL_pixels.h
+ ../c-lib/SDL2/include/SDL2/SDL_platform.h
+ ../c-lib/SDL2/include/SDL2/SDL_power.h
+ ../c-lib/SDL2/include/SDL2/SDL_quit.h
+ ../c-lib/SDL2/include/SDL2/SDL_rect.h
+ ../c-lib/SDL2/include/SDL2/SDL_render.h
+ ../c-lib/SDL2/include/SDL2/SDL_rwops.h
+ ../c-lib/SDL2/include/SDL2/SDL_scancode.h
+ ../c-lib/SDL2/include/SDL2/SDL_stdinc.h
+ ../c-lib/SDL2/include/SDL2/SDL_surface.h
+ ../c-lib/SDL2/include/SDL2/SDL_system.h
+ ../c-lib/SDL2/include/SDL2/SDL_thread.h
+ ../c-lib/SDL2/include/SDL2/SDL_timer.h
+ ../c-lib/SDL2/include/SDL2/SDL_touch.h
+ ../c-lib/SDL2/include/SDL2/SDL_version.h
+ ../c-lib/SDL2/include/SDL2/SDL_video.h
+ ../c-lib/SDL2/include/SDL2/begin_code.h
+ ../c-lib/SDL2/include/SDL2/close_code.h
+ C:/Users/John-i5m/CLionProjects/ProjectC/c-src/gui.c
 CMakeFiles/ProjectC.dir/c-src/main.c.obj
  C:/Users/John-i5m/CLionProjects/ProjectC/c-head/main.h
  C:/Users/John-i5m/CLionProjects/ProjectC/c-src/main.c

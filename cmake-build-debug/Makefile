@@ -203,6 +203,33 @@ c-src/game.c.s:
 	$(MAKE) -f CMakeFiles\ProjectC.dir\build.make CMakeFiles/ProjectC.dir/c-src/game.c.s
 .PHONY : c-src/game.c.s
 
+c-src/gui.obj: c-src/gui.c.obj
+
+.PHONY : c-src/gui.obj
+
+# target to build an object file
+c-src/gui.c.obj:
+	$(MAKE) -f CMakeFiles\ProjectC.dir\build.make CMakeFiles/ProjectC.dir/c-src/gui.c.obj
+.PHONY : c-src/gui.c.obj
+
+c-src/gui.i: c-src/gui.c.i
+
+.PHONY : c-src/gui.i
+
+# target to preprocess a source file
+c-src/gui.c.i:
+	$(MAKE) -f CMakeFiles\ProjectC.dir\build.make CMakeFiles/ProjectC.dir/c-src/gui.c.i
+.PHONY : c-src/gui.c.i
+
+c-src/gui.s: c-src/gui.c.s
+
+.PHONY : c-src/gui.s
+
+# target to generate assembly for a file
+c-src/gui.c.s:
+	$(MAKE) -f CMakeFiles\ProjectC.dir\build.make CMakeFiles/ProjectC.dir/c-src/gui.c.s
+.PHONY : c-src/gui.c.s
+
 c-src/main.obj: c-src/main.c.obj
 
 .PHONY : c-src/main.obj
@@ -248,6 +275,9 @@ help:
 	@echo ... c-src/game.obj
 	@echo ... c-src/game.i
 	@echo ... c-src/game.s
+	@echo ... c-src/gui.obj
+	@echo ... c-src/gui.i
+	@echo ... c-src/gui.s
 	@echo ... c-src/main.obj
 	@echo ... c-src/main.i
 	@echo ... c-src/main.s
