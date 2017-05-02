@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include <afxres.h>
-
+//#include <afxres.h>
 
 #include "../c-head/board.h"
 #include "../c-head/game.h"
 #include "../c-head/find.h"
+#include "../c-head/getLine.h"
 
+#define max(a,b) ((a)>(b)?(a):b)
+#define min(a,b) ((a)<(b)?(a):b)
 /**
  * Play a game func
  */
@@ -65,7 +67,7 @@ void playAGame(){
             printf("\n");
     }
     freeBoard(b);
-    printf("Done\n");
+    printf("Game ended\nBoard cleaned\n");
 }
 
 Level getDifficulty(){
@@ -74,11 +76,12 @@ Level getDifficulty(){
 
 Status gamePvP(Board b){
     int passCount = 0 ;
-    int n = 1 ;
+    int n = 0 ;
     Coord turnReturn ;
     Status state ;
     while(true){
-        printf("Round %d\nWhite pawn count : %d\nBlack pawn count : %d\n",n,b.whiteCount, b.blackCount);
+        printf("Round %d\n",n++);
+        //printf("White pawn count : %d\nBlack pawn count : %d\n",b.whiteCount, b.blackCount);
         //White player plays
         printf("White player turn\nYour move ?\n");
         turnReturn = playerTurn(&b, White);
@@ -138,48 +141,53 @@ Status gamePvP(Board b){
 }
 
 Coord playerTurn(Board* b, Pawn side){
-    char input[100] ;
+    char input[20] ;
+    int retour;
     Coord locationCoord, targetCoord ;
     while(true){
-        printf(">>> ");
-        gets(input);
-        lower(input);
-        // printf("%s\n", input);
-        // Some process to determine whether player wants to play, pass,
-        // display the rules, or i don't know what else
-        if(inputIsAMove(input)){
-            int x1, y1, x2, y2 ;
-            if(processInputToMove(input, &x1, &y1, &x2, &y2)){
-                if(b->board[x1][y1]==enemyPawn(side)){
-                    printf("Invalid play, can't move your opponent pawn. Please try again\n");
-                } else {
-                    locationCoord = initCoord(x1, y1);
-                    targetCoord = initCoord(x2, y2);
-                    bool move = movePawn(*b, locationCoord, targetCoord);
-                    if(move){
-                        resolveMove(b, targetCoord);
-                        return targetCoord ;
-                    } else {
-                        printf("Invalid play, can't go from %c%d to %c%d. Please try again\n",
-                               numberToLetter(x1), y1, numberToLetter(x2), y2);
-                    }
-                }
-            }else{
-                printf("Invalid play or error while processing. Please try again\n");
-            }
-        } else if(strcmp(input,"pass") == 0 ){
-            return initCoord(-1,1) ;
-        } else if(strcmp(input,"give up")==0){
-            return initCoord(-1,2) ;
-        } else if(strcmp(input,"rules")==0){
-            rules() ;
-        } else if(strcmp(input,"board")==0){
-            display(*b) ;
+        retour = getLine(">>> ", input, sizeof(input));
+        if (retour == NO_INPUT) {
+          printf ("No input\n");
+        } else if (retour == TOO_LONG) {
+          printf ("Input too long\n");
         } else {
-            printf("Invalid command. Please try again.\n");
-        }
+          lower(input);
+          // printf("%s\n", input);
 
-        //
+          // Some process to determine whether player wants to play, pass,
+          // display the rules, or i don't know what else
+          if(inputIsAMove(input)){
+              int x1, y1, x2, y2 ;
+              if(processInputToMove(input, &x1, &y1, &x2, &y2)){
+                  if(b->board[x1][y1]==enemyPawn(side)){
+                      printf("Invalid play, can't move your opponent pawn. Please try again\n");
+                  } else {
+                      locationCoord = initCoord(x1, y1);
+                      targetCoord = initCoord(x2, y2);
+                      bool move = movePawn(*b, locationCoord, targetCoord);
+                      if(move){
+                          resolveMove(b, targetCoord);
+                          return targetCoord ;
+                      } else {
+                          printf("Invalid play, can't go from %c%d to %c%d. Please try again\n",
+                                 numberToLetter(x1), y1, numberToLetter(x2), y2);
+                      }
+                  }
+              }else{
+                  printf("Invalid play or error while processing. Please try again\n");
+              }
+          } else if(strcmp(input,"pass") == 0 ){
+              return initCoord(-1,1) ;
+          } else if(strcmp(input,"give up")==0){
+              return initCoord(-1,2) ;
+          } else if(strcmp(input,"rules")==0){
+              rules() ;
+          } else if(strcmp(input,"board")==0){
+              display(*b) ;
+          } else {
+              printf("Invalid command. Please try again.\n");
+          }
+        }
     }
 }
 

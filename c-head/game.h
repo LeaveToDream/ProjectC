@@ -1,6 +1,8 @@
 #ifndef __GAME__
 #define __GAME__
 
+#include "../c-head/board.h"
+
 
 typedef enum Status Status ;
 
