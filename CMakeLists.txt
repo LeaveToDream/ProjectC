@@ -10,7 +10,6 @@ set(SOURCE_FILES
         c-src/find.c    c-head/find.h
         c-src/gui.c     c-head/gui.h)
 
-set(SDL2_PATH "D:\\Dev\\SDL2")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${ProjectC_SOURCE_DIR}/c-lib/cmake")
 
 find_package(SDL2 REQUIRED)
@@ -19,3 +18,7 @@ include_directories(${SDL2_INCLUDE_DIR})
 add_executable(ProjectC ${SOURCE_FILES})
 
 target_link_libraries(ProjectC ${SDL2_LIBRARY})
+
+#https://brendanwhitfield.wordpress.com/2015/02/26/using-cmake-with-sdl2/
+#http://stackoverflow.com/questions/23850472/how-to-use-sdl2-and-sdl-image-with-cmake
+#https://github.com/Twinklebear/TwinklebearDev-Lessons/tree/master/cmake
