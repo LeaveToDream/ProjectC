@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdbool.h>
 
+
 Board init(Level level){
   Board b;
   int n = (int) level;

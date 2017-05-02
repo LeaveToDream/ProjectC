@@ -15,8 +15,8 @@ int main (int argc, char* argv[]){
     switch(i){
       case 'g' : game(); break;
       case 'h' : help(); break;
-      case 'r' : gamealone(); break; 
-      //r comme robot... #intelligence artificielle tout ça tout ça... (oui bah c'est bon hein, on ne critique pas !) 
+      case 'r' : gamealone(); break;
+      //r comme robot... #intelligence artificielle tout ça tout ça... (oui bah c'est bon hein, on ne critique pas !)
       case 'e' : return 0 ;
       default : wrong(); break;
     }
@@ -33,7 +33,7 @@ void game(){
   printf("---Game--- \n");
   // Init the game board
   while(playing==1){
-    
+
 
 
 
