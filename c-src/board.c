@@ -74,7 +74,7 @@ Board fillBoard(Board b){
     b.whiteCount = whiteCount;
     b.blackCount = blackCount;
 
-    printf("Recap : white pawn count = %d, black pawn count = %d, empty cells = %d. \n", b.whiteCount, b.blackCount, noneCount);
+    //printf("Recap : white pawn count = %d, black pawn count = %d, empty cells = %d. \n", b.whiteCount, b.blackCount, noneCount);
     return b ;
 }
 

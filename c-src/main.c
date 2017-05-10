@@ -4,7 +4,7 @@
 
 #include "../c-head/main.h"
 
-int mainEuh (int argc, char* argv[]){
+int main (int argc, char* argv[]){
   char i;
   printf("Hello World\n");
   printf("Enter cmd (h to get help)\n");

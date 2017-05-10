@@ -1,5 +1,6 @@
 #ifndef __BOARD__
 #define __BOARD__
+#include <stdbool.h>
 
 typedef enum Pawn Pawn ;
 typedef enum Level Level ;
@@ -33,6 +34,5 @@ void refreshPMAfterMove(Board b, Coord p);
 bool removePawn(Board* b, Coord p);
 void display(Board b);
 void freeBoard(Board b);
-
 
 #endif
