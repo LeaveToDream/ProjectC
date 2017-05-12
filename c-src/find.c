@@ -27,7 +27,6 @@ bool processMove(char* string, int* x1, int* y1, int* x2, int* y2){
     if(!isAMove(string)){
         return false ;
     }
-
     const char toFind[5] = " to ";
     char* tempChar ;
     int anchor, tempInt ;
@@ -68,7 +67,7 @@ bool processMove(char* string, int* x1, int* y1, int* x2, int* y2){
     } else {
         return false ;
     }
-
+    return true;
 }
 
 char *str_sub (const char *s, unsigned int start, unsigned int end) {

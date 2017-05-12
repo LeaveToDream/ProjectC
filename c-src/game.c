@@ -79,7 +79,7 @@ Status gamePvP(Board b){
     int n = 0 ;
     Coord turnReturn ;
     Status state ;
-    printf("Let the game begin !\n");
+    printf("Let the game begin !\n\n");
     display(b);
     while(true){
         printf("Round %d\n",n++);
