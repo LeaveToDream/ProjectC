@@ -3,40 +3,20 @@
 
 #include "../c-head/getLine.h"
 
-int getLine (char *prmpt, char *buff, size_t sz) {
-#ifdef _WIN32
-    char character = buff[sz-1];
-    printf("%s", prmpt);
-    _flushall();
-    scanf("%s", buff);
-    if(buff[sz-1] != character){
-        buff[sz-1] = "\0" ;
+char *My_gets(char * str) {
+    char buffer[My_gets_N];
+    char *retval = fgets(buffer, My_gets_N, stdin);
+    if (retval) {
+        int l = strlen(buffer);
+        /* fgets() saves '\n', but gets() does not */
+        if ((l > 0) && (buffer[l-1] == '\n')) {
+            l--;
+        }
+        memcpy(str, buffer, l);
+        str[l] = '\0';
+        return str;
     }
-    return 0 ;
-#endif
-
-#ifdef linux
-    int ch, extra;
-
-    // Get line with buffer overrun protection.
-    if (prmpt != NULL) {
-        printf ("%s", prmpt);
-        fflush (stdout);
+    else {
+        return 0;
     }
-    if (fgets (buff, sz, stdin) == NULL)
-        return NO_INPUT;
-
-    // If it was too long, there'll be no newline. In that case, we flush
-    // to end of line so that excess doesn't affect the next call.
-    if (buff[strlen(buff)-1] != '\n') {
-        extra = 0;
-        while (((ch = getchar()) != '\n') && (ch != EOF))
-            extra = 1;
-        return (extra == 1) ? TOO_LONG : OK;
-    }
-
-    // Otherwise remove newline and give string back to caller.
-    buff[strlen(buff)-1] = '\0';
-    return OK;
-#endif
 }

@@ -231,7 +231,7 @@ CMakeLists.txt
 
 # Bin and .o
 *.o
-c-bin/
+c-out/*
 c-bin/*
 cmake-build-debug/ProjectC.exe
 cmake-build-debug/CMakeFiles/ProjectC.dir/progress.make

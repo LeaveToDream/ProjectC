@@ -1,10 +1,9 @@
-#ifndef __GETLINE__
-#define __GETLINE__
 
-#define OK       0
-#define NO_INPUT 1
-#define TOO_LONG 2
+#ifndef PROJECTC_MYGETS_H
+#define PROJECTC_MYGETS_H
 
-int getLine (char *prmpt, char *buff, size_t sz);
+#define My_gets_N (2048)
 
-#endif
+char *My_gets(char * str);
+
+#endif //PROJECTC_MYGETS_H

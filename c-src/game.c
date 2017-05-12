@@ -142,14 +142,12 @@ Status gamePvP(Board b){
 
 Coord playerTurn(Board* b, Pawn side){
     char input[20] ;
-    int retour;
     Coord locationCoord, targetCoord ;
     while(true){
-        retour = getLine(">>> ", input, sizeof(input));
-        if (retour == NO_INPUT) {
-          printf ("No input\n");
-        } else if (retour == TOO_LONG) {
-          printf ("Input too long\n");
+        printf(">>> ");
+        My_gets(input);
+        if (input == NULL) {
+          printf ("Error while reading input\n");
         } else {
           lower(input);
           // printf("%s\n", input);

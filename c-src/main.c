@@ -12,7 +12,7 @@ int main (int argc, char* argv[]){
   printf("Hello World\n");
   printf("Enter cmd (h to get help)\n");
   do{
-    strcpy(input, "game"); //  retour = getLine(">>> ", input, sizeof(input));
+    My_gets(input); //  retour = getLine(">>> ", input, sizeof(input));
     if (retour == NO_INPUT) {
       printf ("No input\n");
     } else if (retour == TOO_LONG) {
