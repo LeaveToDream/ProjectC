@@ -79,6 +79,8 @@ Status gamePvP(Board b){
     int n = 0 ;
     Coord turnReturn ;
     Status state ;
+    printf("Let the game begin !\n");
+    display(b);
     while(true){
         printf("Round %d\n",n++);
         //printf("White pawn count : %d\nBlack pawn count : %d\n",b.whiteCount, b.blackCount);
@@ -182,8 +184,13 @@ Coord playerTurn(Board* b, Pawn side){
               rules() ;
           } else if(strcmp(input,"board")==0){
               display(*b) ;
+          } else if(strcmp(input,"help")==0){
+              printf("Type pass to pass your turn.\n");
+              printf("Type give up to concede the victory.\n");
+              printf("Type rules to receive a quick explanation of the game.\n");
+              printf("Type board to display the current board.\n");
           } else {
-              printf("Invalid command. Please try again.\n");
+              printf("Invalid command. Please try again. Type help to get help.\n");
           }
         }
     }

@@ -10,13 +10,12 @@ int main (int argc, char* argv[]){
   char input[20] ;
   int retour;
   printf("Hello World\n");
-  printf("Enter cmd (h to get help)\n");
-  do{
-    My_gets(input); //  retour = getLine(">>> ", input, sizeof(input));
-    if (retour == NO_INPUT) {
-      printf ("No input\n");
-    } else if (retour == TOO_LONG) {
-      printf ("Input too long\n");
+  printf("Enter cmd (help to get help)\n");
+  do{ 
+    printf(">>> ");
+    My_gets(input);
+    if (input == NULL) {
+      printf ("Error while reading input\n");
     } else {
       if(strcmp("game",input)==0) {
         game();
@@ -34,7 +33,7 @@ int main (int argc, char* argv[]){
 }
 
 void wrong(){
-  printf("Unknown cmd operator. Use h to get help.\n");
+  printf("Unknown cmd operator. Use help to get help.\n");
 }
 void help(){
   printf("game starts a new game\n");
