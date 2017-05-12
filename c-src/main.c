@@ -3,41 +3,48 @@
 #include <stdbool.h>
 
 #include "../c-head/main.h"
+#include "../c-head/game.h"
+#include "../c-head/getLine.h"
 
 int main (int argc, char* argv[]){
-  char i;
+  char input[20] ;
+  int retour;
   printf("Hello World\n");
   printf("Enter cmd (h to get help)\n");
   do{
-    printf(">>> ");
-    i = getCharClean();
-    switch(i){
-      case 'g' : game(); break;
-      case 'h' : help(); break;
-      case 'e' : return 0 ;
-      default : wrong(); break;
+    strcpy(input, "game"); //  retour = getLine(">>> ", input, sizeof(input));
+    if (retour == NO_INPUT) {
+      printf ("No input\n");
+    } else if (retour == TOO_LONG) {
+      printf ("Input too long\n");
+    } else {
+      if(strcmp("game",input)==0) {
+        game();
+      } else if(strcmp("help",input)==0){
+        help();
+      } else if(strcmp("exit",input)==0){
+        return 0 ;
+      } else {
+        wrong();
+      }
     }
-  }while(i!='e');
-}
+  }while(strcmp("exit",input)!=0);
 
-char getCharClean(){
-  char c = getchar();
-  while(getchar()!='\n');
-  return c;
+  return 0 ;
 }
 
 void wrong(){
   printf("Unknown cmd operator. Use h to get help.\n");
 }
 void help(){
-  printf("g starts a new game\n");
-  printf("h display help\n");
-  printf("e to exit\n");
+  printf("game starts a new game\n");
+  printf("help display help\n");
+  printf("exit to exit\n");
 }
 void game(){
-  int playing = true ;
   printf("---Game--- \n");
   // Init the game board
   playAGame();
 
+  printf("Done\nEnter game to start a new one\n");
 }

@@ -1,6 +1,6 @@
-
 #include "../c-head/gui.h"
 #include "../c-head/board.h"
+
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 860;

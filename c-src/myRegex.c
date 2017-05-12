@@ -1,7 +1,7 @@
 #include <regex.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include <afxres.h>
+//#include <afxres.h>
 
 #include "../c-head/board.h"
 #include "../c-head/game.h"
@@ -138,8 +138,5 @@ bool reg_find_move(const char *str, const char* pattern, int* x1, int* y1, int* 
     }
 
     return false ;
-    
+
 }
-
-
-
