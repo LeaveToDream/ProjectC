@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "../c-head/Board.h"
+#include "../c-head/Game.h"
+
+
 int value(B){
 }
 
@@ -29,7 +33,7 @@ int negamaxAB(Board B,Coord lastMove, int A, int B, int depth){
 				}
 			}
 		}
-		return bestValue
+		return bestValue ;
 	}
 }
 
