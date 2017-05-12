@@ -219,11 +219,20 @@ pip-log.txt
 ## JetBrains 
 ###############
 
+.idea/
 .idea/*
 
 ###############
 ## CMake
 ###############
-
+cmake-build-debug/
 cmake-build-debug/*
 CMakeLists.txt
+
+# Bin and .o
+*.o
+c-bin/
+c-bin/*
+cmake-build-debug/ProjectC.exe
+cmake-build-debug/CMakeFiles/ProjectC.dir/progress.make
+cmake-build-debug/CMakeCache.txt
