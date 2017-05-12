@@ -13,7 +13,7 @@
 /**
  * Play a game func
  */
-void playAGame(){
+int playAGame(){
     /* code */
     printf("Hello Sir. \nSo you want to play Hasami Shogi.\nHere are the rules:\n");
     rules();
@@ -59,6 +59,11 @@ void playAGame(){
             printf("Game ended with no winner");
             printf("\n");
             break ;
+        case Exit :
+            printf("Game quit before ending.\n");
+            freeBoard(b);
+            printf("Game ended\nBoard cleaned\n");
+            return 1;
         case Playing :
             printf("Error : Game ended while still tagged as continuing.");
             printf("\n");
@@ -68,6 +73,7 @@ void playAGame(){
     }
     freeBoard(b);
     printf("Game ended\nBoard cleaned\n");
+    return 0;
 }
 
 Level getDifficulty(){
@@ -108,6 +114,8 @@ Status gamePvP(Board b){
                     break ;
                 case 2 : // Player gave up
                     return BlackPlayer ;
+                case 3 : // Hard quit
+                    return Exit ;
             }
         }
 
@@ -134,9 +142,10 @@ Status gamePvP(Board b){
                         return Draw ;
                     }
                     break ;
-
                 case 2 : // Player gave up
                     return WhitePlayer ;
+                case 3 : // Hard quit
+                    return Exit ;
             }
         }
     }
@@ -156,7 +165,7 @@ Coord playerTurn(Board* b, Pawn side){
 
           // Some process to determine whether player wants to play, pass,
           // display the rules, or i don't know what else
-          if(inputIsAMove(input)){
+            if(inputIsAMove(input)){
               int x1, y1, x2, y2 ;
               if(processInputToMove(input, &x1, &y1, &x2, &y2)){
                   if(b->board[x1][y1]==enemyPawn(side)){
@@ -180,6 +189,8 @@ Coord playerTurn(Board* b, Pawn side){
               return initCoord(-1,1) ;
           } else if(strcmp(input,"give up")==0){
               return initCoord(-1,2) ;
+          } else if(strcmp(input,"exit") == 0 ){
+              return initCoord(-1,3) ;
           } else if(strcmp(input,"rules")==0){
               rules() ;
           } else if(strcmp(input,"board")==0){

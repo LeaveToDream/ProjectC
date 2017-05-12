@@ -6,7 +6,6 @@ char getCharClean();
 
 void wrong();
 void help();
-void game();
-void playAGame();
+int game();
 
 #endif

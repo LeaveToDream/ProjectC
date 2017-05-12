@@ -6,9 +6,9 @@
 
 typedef enum Status Status ;
 
-enum Status {Playing, Bot, WhitePlayer, BlackPlayer, Draw};
+enum Status {Playing, Bot, WhitePlayer, BlackPlayer, Draw, Exit};
 
-void playAGame();
+int playAGame();
 Status gamePvP(Board b);
 Level getDifficulty();
 Coord playerTurn(Board* b, Pawn side);

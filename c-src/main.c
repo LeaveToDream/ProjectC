@@ -18,7 +18,10 @@ int main (int argc, char* argv[]){
       printf ("Error while reading input\n");
     } else {
       if(strcmp("game",input)==0) {
-        game();
+        int ret  = game();
+        if (ret == 1){
+          return 0;
+        }
       } else if(strcmp("help",input)==0){
         help();
       } else if(strcmp("exit",input)==0){
@@ -40,10 +43,15 @@ void help(){
   printf("help display help\n");
   printf("exit to exit\n");
 }
-void game(){
+int game(){
   printf("---Game--- \n");
   // Init the game board
-  playAGame();
-
-  printf("Done\nEnter game to start a new one\n");
+  int ret = playAGame();
+  if (ret == 1){
+    // Handled error : quit command
+    return 1;
+  } else {
+    printf("Done\nEnter game to start a new one\n");
+    return 0;
+  }
 }
