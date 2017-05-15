@@ -15,7 +15,7 @@
  */
 int playAGame(){
     /* code */
-    printf("Hello Sir. \nSo you want to play Hasami Shogi.\nHere are the rules:\n");
+    printf("Hello Sir. \nSo you want to play Dai Hasami Shogi.\nHere are the rules:\n");
     rules();
     Level level = getDifficulty() ;
     switch(level){
