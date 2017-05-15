@@ -236,3 +236,5 @@ c-bin/*
 cmake-build-debug/ProjectC.exe
 cmake-build-debug/CMakeFiles/ProjectC.dir/progress.make
 cmake-build-debug/CMakeCache.txt
+c-bin/
+c-out/

@@ -44,20 +44,24 @@ int playAGame(){
     Status winner = gamePvP(b);
     switch(winner){
         case WhitePlayer :
-            printf("White player wins.");
-            printf("\n");
+            printf("******************\n");
+            printf("White player wins.\n");
+            printf("******************\n");
             break ;
         case BlackPlayer :
-            printf("Black player wins.");
-            printf("\n");
+            printf("******************\n");
+            printf("Black player wins.\n");
+            printf("******************\n");
             break ;
         case Bot :
-            printf("Computer wins [easy ~~].");
-            printf("\n");
+            printf("******************\n");
+            printf("Computer wins [easy ~~].\n");
+            printf("******************\n");
             break ;
         case Draw :
-            printf("Game ended with no winner");
-            printf("\n");
+            printf("******************\n");
+            printf("Game ended with no winner\n");
+            printf("******************\n");
             break ;
         case Exit :
             printf("Game quit before ending.\n");
@@ -65,11 +69,9 @@ int playAGame(){
             printf("Game ended\nBoard cleaned\n");
             return 1;
         case Playing :
-            printf("Error : Game ended while still tagged as continuing.");
-            printf("\n");
+            printf("Error : Game ended while still tagged as continuing.\n");
         default :
-            printf("Something wrong happened");
-            printf("\n");
+            printf("/!\\/!\\/!\\ Something wrong happened /!\\/!\\/!\\ \n");
     }
     freeBoard(b);
     printf("Game ended\nBoard cleaned\n");
@@ -208,14 +210,14 @@ Coord playerTurn(Board* b, Pawn side){
 }
 
 Status resolveGame(Board* b, Coord c){
-    if(b->whiteCount<5 && b->blackCount<5){
+    if(b->whiteCount<2 && b->blackCount<2){
         return Draw ;
-    } else if(b->whiteCount<5) {
+    } else if(b->whiteCount<2) {
         return BlackPlayer ;
-    } else if(b->blackCount<5) {
+    } else if(b->blackCount<2) {
         return WhitePlayer ;
     }
-
+    /*
     int countB = 0, countW = 0 ;
 
     int iMin = - c.x + max(0, c.x-4);
@@ -322,7 +324,7 @@ Status resolveGame(Board* b, Coord c){
             }
         }
     }
-
+    */
     return Playing;
 }
 
