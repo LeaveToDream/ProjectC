@@ -33,7 +33,7 @@ int negamaxAB(Board B,Coord lastMove, int A, int B, int depth){
 				}
 			}
 		}
-		return bestValue ;
+		return bestValue;
 	}
 }
 

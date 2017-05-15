@@ -43,30 +43,30 @@ Board fillBoard(Board b){
     int n = b.length ;
     int blackCount = 0, whiteCount = 0 , noneCount = 0 ;
     int line ;
-    for(int i = 0; i<2;i++){
+    for(int i = 0; i<1;i++){
         for(int j = 0; j<n;j++){
             b.board[i][j]= Black;
             blackCount++;
         }
     }
-    for(int i = 2; i<n-2;i++){
+    for(int i = 1; i<n-1;i++){
         for(int j = 0; j<n;j++){
             b.board[i][j]= None;
             noneCount++;
         }
     }
-    for(int i = n-2; i<n;i++){
+    for(int i = n-1; i<n;i++){
         for(int j = 0; j<n;j++){
             b.board[i][j]= White;
             whiteCount++;
         }
     }
-    line = 1 ;
+    line = 0 ;
     for(int j = 0; j < n; j++) {
         possibleMove(b, initCoord(line,j));
         // the board, and coordinate of the pawn to process
     }
-    line = n-2;
+    line = n-1;
     for(int j = 0; j < n; j++) {
         possibleMove(b, initCoord(line,j));
         // the board, and coordinate of the pawn to process

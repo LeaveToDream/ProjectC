@@ -228,6 +228,9 @@ pip-log.txt
 #cmake-build-debug/
 #cmake-build-debug/*
 #CMakeLists.txt
+cmake-build-debug/ProjectC.exe
+cmake-build-debug/CMakeFiles/ProjectC.dir/progress.make
+cmake-build-debug/CMakeCache.txt
 
 # Bin and .o
 *.o
