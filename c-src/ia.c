@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "../c-head/Board.h"
+#include "../c-head/Game.h"
+
+
 int value(B){
 }
 

@@ -6,7 +6,7 @@
 const int SCREEN_WIDTH = 860;
 const int SCREEN_HEIGHT = 640;
 
-int maineuh (int argc, char* argv[]){
+int testUI (){
     //Screen dimension constants
     //The window we'll be rendering to
     SDL_Window* window = NULL;
