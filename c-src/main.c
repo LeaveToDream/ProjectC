@@ -5,6 +5,7 @@
 #include "../c-head/main.h"
 #include "../c-head/game.h"
 #include "../c-head/getLine.h"
+#include "../c-head/gui.h"
 
 int main (int argc, char* argv[]){
   char input[20] ;
@@ -23,7 +24,9 @@ int main (int argc, char* argv[]){
           return 0;
         }
       } else if(strcmp("help",input)==0){
-        help();
+          help();
+      } else if(strcmp("testUI",input)==0){
+          testUserInterface();
       } else if(strcmp("exit",input)==0){
         return 0 ;
       } else {
@@ -54,4 +57,7 @@ int game(){
     printf("Done\nEnter game to start a new one\n");
     return 0;
   }
+}
+int testUserInterface(){
+    testUI();
 }
