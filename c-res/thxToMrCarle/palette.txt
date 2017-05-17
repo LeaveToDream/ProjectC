@@ -1,0 +1,7 @@
+Couleurs maquette jean :
+fond				: #131313
+tour cases			: #303030
+fond pions rouges	: #EAEAEA
+fond pions bleus	: #A5A5A5
+Rouge				: #E06969
+Bleu				: #80F2D1
