@@ -7,12 +7,7 @@ struct State {
 };
 
 int main(nt argc, char const *argv[]);
-int negamaxAB(Board B,Coord lastMove, int A, int B, int depth);
-State boardToState(Board B);
-Board stateToBoard(State S);
-State[] nextState(Board B);
+int negamaxAB(Board B,Coord lastMove, int A, int B, int depth, int difficulty);
 
-int value(Board B);
+int moveValue(Board B);
 int evaluatePawnPotential(Board B);
-int evaluateEnnemyVictory(Board B);
-int evaluateVictoryPotential(Baord B);
