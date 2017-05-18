@@ -56,12 +56,12 @@ Resources* initRes(){
 
             res->boardRect          = rect(50,50,540,540) ;
             //TODO card rects
-            res->cardQuitRect       = rect(50,50,540,540) ;
-            res->cardRestartdRect   = rect(50,50,540,540) ;
+            res->cardRestartRect    = rect(CARD_X_ORIG+90,CARD_Y_ORIG+235,220,60) ;
+            res->cardQuitRect       = rect(CARD_X_ORIG+90,CARD_Y_ORIG+295,220,60) ;
             res->buttonRect         = rect(747,527,90,90) ;
             res->buttonPassRect     = rect(747,527,45,45) ;
             res->buttonGiveUpRect   = rect(792,527,45,45) ;
-            res->buttonMenuRect     = rect(747,572,45,45) ;
+            res->buttonRestartRect     = rect(747,572,45,45) ;
             res->buttonRulesRect    = rect(792,572,45,45) ;
 
             return res ;
@@ -188,10 +188,12 @@ Event waitForCardEvent(Resources* res){
                 event.x = (int) events.button.x;
                 event.y = (int) events.button.y;
 
-                if(MYSDL_PointingRect(res->cardRestartdRect, event.x, event.y)){
+                if(MYSDL_PointingRect(res->cardRestartRect, event.x, event.y)){
+                    printf("RESTART CMD\n");
                     event.zone=CARD_RESTART ;
                     usefullEventAppeared = true ;
                 } else if(MYSDL_PointingRect(res->cardQuitRect, event.x, event.y)){
+                    printf("QUIT CMD\n");
                     event.zone=CARD_QUIT ;
                     usefullEventAppeared = true ;
                 }
@@ -257,7 +259,7 @@ void displayWinningColorUI(Resources* res, Status status){
             card = res->cardDraw;
             break;
         default:
-            fprintf(stderr, "Erreur displayWinningColorUI : Wrong status input\n");
+            fprintf(stderr, "Erreur displayWinningColorUI : Wrong status input (%d)\n", status);
             getchar();
             exit(-1);
     }

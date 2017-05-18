@@ -5,9 +5,9 @@
 #include "../c-head/board.h"
 #include "../c-head/gameNoUI.h"
 
-Board initBoard(Level level){
+Board initBoard(){
     Board b;
-    int n = (int) level;
+    int n = 9;
     // Preparing pawn board
     b.board = (Pawn **) malloc(sizeof(Pawn*)*n);
     for(int i = 0; i<n;i++){
@@ -108,7 +108,8 @@ void possibleMove(Board b, Coord c){
             b.possibleMove[c.x][c.y][i]=initCoord(-1,-1);
         }
     }
-
+    printf("Banana pre test (pawn at %d,%d)\n",c.x,c.y);
+    fflush(stdout);
     if(b.board[c.x][c.y]!=None){
         int x, y, i=0;
         Pawn p = b.board[c.x][c.y];
@@ -143,29 +144,43 @@ void possibleMove(Board b, Coord c){
             b.possibleMove[c.x][c.y][i]=initCoord(x,y);
             i++;
         }
+
+        printf("Banana pre jump\n");
+        fflush(stdout);
         // Si un Pawn est au contact
         y = c.y;
 
         // Hidari
         if(isInBoard(b, initCoord(x-1, y)) && b.board[x-1][y]==enemy){ // Tobiutsuru ga dekiru
-            b.possibleMove[c.x][c.y][i]=initCoord(x-2,y);
-            i++;
+            if(isInBoard(b,initCoord(x-2,y))&&b.board[x-2][y]==None){
+                b.possibleMove[c.x][c.y][i]=initCoord(x-2,y);
+                i++;
+            }
         }
         // Migi
         if(isInBoard(b, initCoord(x+1, y)) && b.board[x+1][y]==enemy){ // On peut sauter au dessus
-            b.possibleMove[c.x][c.y][i]=initCoord(x+2,y);
-            i++;
+            if(isInBoard(b,initCoord(x+2,y))&&b.board[x+2][y]==None) {
+                b.possibleMove[c.x][c.y][i] = initCoord(x + 2, y);
+                i++;
+            }
         }
         // Ué
         if(isInBoard(b, initCoord(x, y-1)) && b.board[x][y-1]==enemy){ // On peut sauter au dessus
-            b.possibleMove[c.x][c.y][i]=initCoord(x,y-2);
-            i++;
+            if(isInBoard(b,initCoord(x,y-2))&&b.board[x][y-2]==None) {
+                b.possibleMove[c.x][c.y][i] = initCoord(x, y - 2);
+                i++;
+            }
         }
         // Shita
         if(isInBoard(b, initCoord(x, y+1)) && b.board[x][y+1]==enemy){ // On peut sauter au dessus
-            b.possibleMove[c.x][c.y][i]=initCoord(x,y+2);
+            if(isInBoard(b,initCoord(x,y+2))&&b.board[x][y+2]==None) {
+                b.possibleMove[c.x][c.y][i] = initCoord(x, y + 2);
+                i++;
+            }
         }
         // Dab
+        printf("Banana post jump\n");
+        fflush(stdout);
     }
 }
 
@@ -261,11 +276,13 @@ bool resolveMove(Board* b, Coord p){
         i++;
         tempCoord.x+=1;
     } //
-    if(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==side&&i>0){
-        i--;
-        toSup[j] = tempToSup[i];
-        tempToSup[i] = empty ;
-        j++;
+    if(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==side){
+        while(i>0) {
+            i--;
+            toSup[j] = tempToSup[i];
+            tempToSup[i] = empty;
+            j++;
+        }
     }
 
     // top
@@ -279,11 +296,13 @@ bool resolveMove(Board* b, Coord p){
         i++;
         tempCoord.x-=1;
     }
-    if(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==side&&i>0){
-        i--;
-        toSup[j] = tempToSup[i];
-        tempToSup[i] = empty ;
-        j++;
+    if(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==side){
+        while(i>0) {
+            i--;
+            toSup[j] = tempToSup[i];
+            tempToSup[i] = empty;
+            j++;
+        }
     }
 
     // right
@@ -296,11 +315,13 @@ bool resolveMove(Board* b, Coord p){
         i++;
         tempCoord.y+=1;
     } //
-    if(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==side&&i>0){
-        i--;
-        toSup[j] = tempToSup[i];
-        tempToSup[i] = empty ;
-        j++;
+    if(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==side){
+        while(i>0) {
+            i--;
+            toSup[j] = tempToSup[i];
+            tempToSup[i] = empty;
+            j++;
+        }
     }
 
     // top
@@ -313,11 +334,13 @@ bool resolveMove(Board* b, Coord p){
         i++;
         tempCoord.y-=1;
     }
-    if(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==side&&i>0){
-        i--;
-        toSup[j] = tempToSup[i];
-        tempToSup[i] = empty ;
-        j++;
+    if(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==side){
+        while(i>0){
+            i--;
+            toSup[j] = tempToSup[i];
+            tempToSup[i] = empty ;
+            j++;
+        }
     }
 
     printf("-drop \n");
@@ -336,8 +359,7 @@ bool resolveMove(Board* b, Coord p){
     }
     return ret ;
 
-}/**/
-
+}
 
 void freeBoard(Board b){
     int n = b.length;

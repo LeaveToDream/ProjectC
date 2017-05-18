@@ -40,12 +40,12 @@ struct Resources {
     SDL_Texture * cardDraw;
     SDL_Texture * cardBot;
     SDL_Rect boardRect;
+    SDL_Rect cardRestartRect;
     SDL_Rect cardQuitRect;
-    SDL_Rect cardRestartdRect;
     SDL_Rect buttonRect;
     SDL_Rect buttonPassRect;
     SDL_Rect buttonGiveUpRect;
-    SDL_Rect buttonMenuRect;
+    SDL_Rect buttonRestartRect;
     SDL_Rect buttonRulesRect;
     int state ;
 };

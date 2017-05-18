@@ -7,6 +7,6 @@ char getCharClean();
 void wrong();
 void help();
 int game();
-int testUserInterface();
+int gameUI();
 
 #endif

@@ -9,8 +9,8 @@ typedef struct Board Board ;
 typedef struct Coord Coord ;
 
 enum Pawn {None, White, Black};
-enum Level {EASY=7, NORMAL=9, HARDCORE=15};
-enum Status {Playing, Bot, WhitePlayer, BlackPlayer, Draw, Menu, Exit};
+enum Level {EASY, NORMAL, HARDCORE};
+enum Status {Playing, Bot, WhitePlayer, BlackPlayer, Draw, Quit, Exit};
 
 struct Board {
     int length;
@@ -24,7 +24,7 @@ struct Coord {
     int x,y;
 };
 
-Board initBoard(Level level);
+Board initBoard();
 Coord initCoord(int x, int y);
 Pawn enemyPawn(Pawn p);
 Board fillBoard(Board b);

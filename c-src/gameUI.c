@@ -10,18 +10,29 @@
 #include "../c-head/board.h"
 #include "../c-head/gui.h"
 
-int playAGameUI(Level level){
+
+
+
+int playAGameUI(){
     // Initialise board, and fill it with pawn of the right color at the right location
     Resources * res = initRes() ;
-    Board b = initBoard(level);
+    Board b = initBoard();
     b = fillBoard(b);
     Status winner = gamePvPUI(b, res);
-    if(winner!=Exit || winner!=Menu){
+    if(!(winner==Exit||winner==Quit)){
         displayWinningColorUI(res, winner);
-        waitForCardEvent(res);
+        Event event = waitForCardEvent(res);
+        if(event.zone==CARD_RESTART){
+            freeBoard(b);
+            freeRes(res);
+            return 2;
+        }
     }
     freeBoard(b);
     freeRes(res);
+    if(winner==Exit){
+        return 1;
+    }
     return 0;
 }
 
@@ -51,7 +62,9 @@ Status gamePvPUI(Board b, Resources* res){
                     break ;
                 case 2 : // Player gave up
                     return BlackPlayer ;
-                case 3 : // Hard quit
+                case 3 : // Soft quit
+                    return Quit ;
+                case 4 : // Hard quit
                     return Exit ;
             }
         }
@@ -75,17 +88,13 @@ Status gamePvPUI(Board b, Resources* res){
                     break ;
                 case 2 : // Player gave up
                     return WhitePlayer ;
-                case 3 : // Go back to menu
-                    return Menu ;
+                case 3 : // Soft quit
+                    return Quit ;
                 case 4 : // Hard quit
                     return Exit ;
             }
         }
     }
-}
-
-Status playerTurnWrapperUI(Resources* res, Board* b, Pawn side){
-
 }
 
 Coord playerTurnUI(Resources* res, Board* b, Pawn side){
@@ -113,7 +122,7 @@ Coord playerTurnUI(Resources* res, Board* b, Pawn side){
                     printf("ligne 121\n");
                     event = waitForUsefulEvent(res);
                     if(event.type==QUIT){
-                        return initCoord(-1,3) ;
+                        return initCoord(-1,4) ;
                     } else if(event.zone==BOARD){
                         if(event.type==RIGHT_CLICK){
                             targetCoord = initCoord(-1, 0);
@@ -141,8 +150,8 @@ Coord playerTurnUI(Resources* res, Board* b, Pawn side){
                         } else if (MYSDL_isInRect(res->buttonGiveUpRect, event)) {
                             //give up
                             return initCoord(-1, 2);
-                        } else if (MYSDL_isInRect(res->buttonMenuRect, event)) {
-                            //menu
+                        } else if (MYSDL_isInRect(res->buttonRestartRect, event)) {
+                            //Quit
                             return initCoord(-1, 3);
                         } else if (MYSDL_isInRect(res->buttonRulesRect, event)) {
                             //rules
@@ -159,8 +168,8 @@ Coord playerTurnUI(Resources* res, Board* b, Pawn side){
             } else if(MYSDL_isInRect(res->buttonGiveUpRect, event)){
                 //give up
                 return initCoord(-1,2) ;
-            } else if(MYSDL_isInRect(res->buttonMenuRect, event)){
-                //Menu
+            } else if(MYSDL_isInRect(res->buttonRestartRect, event)){
+                //Quit
                 return initCoord(-1,3) ;
             } else if(MYSDL_isInRect(res->buttonRulesRect, event)){
                 //rules

@@ -9,32 +9,33 @@
 #include "../c-head/gui.h"
 
 int main (int argc, char* argv[]){
-  playAGameUI(NORMAL);
+  //gameUI();
+  //playAGameUI(NORMAL);
   char input[20] ;
   int retour;
   printf("Hello World\n");
   printf("Enter cmd (help to get help)\n");
   do{ 
-    printf(">>> ");
-    My_gets(input);
-    if (input == NULL) {
-      printf ("Error while reading input\n");
-    } else {
+      printf(">>> ");
+      My_gets(input);
       if(strcmp("game",input)==0) {
-        int ret  = game();
-        if (ret == 1){
+        if (game() == 1){
           return 0;
         }
       } else if(strcmp("help",input)==0){
           help();
-      } else if(strcmp("testUI",input)==0){
-          testUserInterface();
+      } else if(strcmp("gameUI",input)==0){
+          do{
+              retour = gameUI();
+          }while(retour==2);
+          if(retour == 1){
+              return 0;
+          }
       } else if(strcmp("exit",input)==0){
         return 0 ;
       } else {
         wrong();
       }
-    }
   }while(strcmp("exit",input)!=0);
 
   return 0 ;
@@ -60,6 +61,6 @@ int game(){
     return 0;
   }
 }
-int testUserInterface(){
-    playAGameUI(NORMAL);
+int gameUI(){
+    return playAGameUI(NORMAL);
 }

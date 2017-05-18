@@ -14,27 +14,8 @@ int playAGame(){
     /* code */
     printf("Hello Sir. \nSo you want to play Hasami Shogi.\nHere are the rules:\n");
     rules();
-    Level level = getDifficulty() ;
-    switch(level){
-        case EASY :
-            printf("The difficulty is set to easy. Board is %dx%d\n", level, level);
-            break ;
-
-        case NORMAL :
-            printf("The difficulty is set to normal. Board is %dx%d\n", level,level);
-            break ;
-
-        case HARDCORE :
-            printf("The difficulty is set to hard. Board is %dx%d\n", level, level);
-            break ;
-
-        default:
-            printf("The difficulty has not been set correctly. Board is screwed");
-            break ;
-    }
-
     // Initialise board, and fill it with pawn of the right color at the right location
-    Board b = initBoard(level);
+    Board b = initBoard();
     b = fillBoard(b);
     printf("White pawns move first.\n\nPress Enter key to start\n");
     getchar();
