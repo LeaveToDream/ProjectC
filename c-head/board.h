@@ -4,11 +4,13 @@
 
 typedef enum Pawn Pawn ;
 typedef enum Level Level ;
+typedef enum Status Status ;
 typedef struct Board Board ;
 typedef struct Coord Coord ;
 
 enum Pawn {None, White, Black};
 enum Level {EASY=7, NORMAL=9, HARDCORE=15};
+enum Status {Playing, Bot, WhitePlayer, BlackPlayer, Draw, Menu, Exit};
 
 struct Board {
     int length;
@@ -26,6 +28,8 @@ Board initBoard(Level level);
 Coord initCoord(int x, int y);
 Pawn enemyPawn(Pawn p);
 Board fillBoard(Board b);
+Status resolveGame(Board* b);
+bool resolveMove(Board* b, Coord p);
 bool isInBoard(Board b, Coord c);
 void possibleMove(Board b, Coord c);
 bool isMovePossible(Board b, Coord p1, Coord p2);

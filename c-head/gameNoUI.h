@@ -1,19 +1,15 @@
-#ifndef __GAME__
-#define __GAME__
+#ifndef __GAME_NO_UI__
+#define __GAME_NO_UI__
 
 #include "../c-head/board.h"
 
 
-typedef enum Status Status ;
 
-enum Status {Playing, Bot, WhitePlayer, BlackPlayer, Draw, Exit};
 
 int playAGame();
 Status gamePvP(Board b);
 Level getDifficulty();
 Coord playerTurn(Board* b, Pawn side);
-Status resolveGame(Board* b, Coord c);
-bool resolveMove(Board* b, Coord p);
 void rules();
 char numberToLetter(int n);
 int letterToNumber(char c);

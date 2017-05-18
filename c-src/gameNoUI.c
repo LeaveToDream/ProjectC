@@ -1,15 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-//#include <afxres.h>
 
 #include "../c-head/board.h"
-#include "../c-head/game.h"
+#include "../c-head/gameNoUI.h"
 #include "../c-head/find.h"
 #include "../c-head/getLine.h"
 
-#define max(a,b) ((a)>(b)?(a):b)
-#define min(a,b) ((a)<(b)?(a):b)
 /**
  * Play a game func
  */
@@ -97,7 +94,7 @@ Status gamePvP(Board b){
         turnReturn = playerTurn(&b, White);
         if(isInBoard(b, turnReturn)){ // Turn went right
             passCount = 0 ;
-            if((state = resolveGame(&b, turnReturn))!= Playing ){
+            if((state = resolveGame(&b))!= Playing ){
                 return state ;
             } else {
                 // Displaying the board after update
@@ -127,7 +124,7 @@ Status gamePvP(Board b){
         //turnReturn = initCoord(-1, 1); // For testing purpose
         if(isInBoard(b, turnReturn)){ // Turn went right
             passCount = 0 ;
-            if((state = resolveGame(&b, turnReturn))!= Playing ){
+            if((state = resolveGame(&b))!= Playing ){
                 return state ;
             } else {
                 // Displaying the board after update
@@ -209,273 +206,38 @@ Coord playerTurn(Board* b, Pawn side){
     }
 }
 
-Status resolveGame(Board* b, Coord c){
-    if(b->whiteCount<2 && b->blackCount<2){
-        return Draw ;
-    } else if(b->whiteCount<2) {
-        return BlackPlayer ;
-    } else if(b->blackCount<2) {
-        return WhitePlayer ;
+void display(Board b) {
+    char none = '.', black = 'b', white = 'w';
+    printf("  ");
+    for (int i = 0; i < b.length; i++) {
+        printf("%d ", i);
     }
-    /*
-    int countB = 0, countW = 0 ;
 
-    int iMin = - c.x + max(0, c.x-4);
-    int iMax = - c.x + min(b->length-1, c.x+4);
+    printf("\n");
 
-    // Vertical path
-    for (int i = iMin; i <= iMax; ++i) {
-        if(isInBoard(*b, initCoord(c.x+i,c.y))){
-            switch(b->board[c.x+i][c.y]){
-                case White :
-                    countB = 0 ;
-                    if(i<b->length-2){
-                        countW++;
-                        if(countW == 5){
-                            return WhitePlayer ;
-                        }
-                    }
+    for (int i = 0; i < b.length; i++) {
+
+        // Line number
+        printf("%c ", numberToLetter(i));
+
+        for (int j = 0; j < b.length; j++) {
+
+            switch (b.board[i][j]) {
+                case Black:
+                    printf("%c ", black);
                     break;
-                case Black :
-                    countW = 0 ;
-                    if(i>2){
-                        countB++;
-                        if(countB == 5){
-                            return BlackPlayer ;
-                        }
-                    }
+                case White:
+                    printf("%c ", white);
                     break;
-
                 default:
-                    countB = 0 ;
-                    countW = 0 ;
+                    printf("%c ", none);
+                    break;
             }
         }
+        printf("\n");
     }
 
-
-
-    // Reboot
-    countB = 0 ;
-    countW = 0 ;
-
-    // Diagonal paths :
-    // From top left to bottom right
-
-    for (int i = iMin; i <= iMax; ++i) {
-        if(isInBoard(*b, initCoord(c.x+i,c.y+i))){
-            switch(b->board[c.x+i][c.y+i]){
-                case White :
-                    countB = 0 ;
-                    if(c.x+i<b->length-2){
-                        countW++;
-                        if(countW == 5){
-                            return WhitePlayer ;
-                        }
-                    }
-                    break;
-                case Black :
-                    countW = 0 ;
-                    if(c.x+i>2){
-                        countB++;
-                        if(countB == 5){
-                            return BlackPlayer;
-                        }
-                    }
-                    break;
-
-                default:
-                    countB = 0 ;
-                    countW = 0 ;
-            }
-        }
-    }
-
-    // Reboot
-    countB = 0 ;
-    countW = 0 ;
-
-    // From top right to bottom left
-    for (int i = iMin; i <= iMax; ++i) {
-        if(isInBoard(*b, initCoord(c.x+i,c.y-i))){
-            switch(b->board[c.x+i][c.y-i]){
-                case White :
-                    countB = 0 ;
-                    if(c.x+i<b->length-2){
-                        countW++;
-                        if(countW == 5){
-                            return WhitePlayer ;
-                        }
-                    }
-                    break;
-                case Black :
-                    countW = 0 ;
-                    if(c.x+i>2){
-                        countB++;
-                        if(countB == 5){
-                            return BlackPlayer ;
-                        }
-                    }
-                    break;
-
-                default:
-                    countB = 0 ;
-                    countW = 0 ;
-            }
-        }
-    }
-    */
-    return Playing;
-}
-
-bool resolveMove(Board* b, Coord p){
-    // We have 4 check to do : vertical/horizontal for black/white pawn.
-    Coord empty = initCoord(-1, -1);
-    Coord tempW[b->length]  ; int i = 0 ;
-    Coord tempB[b->length]  ; int j = 0 ;
-    Coord toSup[2*b->length]; int k = 0 ;
-
-    for(int l = 0, ll = 0; l<b->length;l++){
-        tempB[l] = empty ;
-        tempW[l] = empty ;
-        toSup[ll] = empty ;
-        ll++;
-        toSup[ll] = empty ;
-        ll++;
-    }
-
-    bool switchW = false, switchB = false ;
-
-    // First, the two horizontal ones
-    for(int l = 0; l<b->length;l++){
-        switch(b->board[p.x][l]){
-            case White :
-                // move tempW to toSup
-                while (i>0){
-                    i--;
-                    toSup[k] = tempW[i];
-                    tempW[i] = empty ,
-                    k++;
-                }
-                // put switchW to true
-                switchW = true ;
-                // add to tempB if (switchB)
-                if(switchB){
-                    tempB[j]=initCoord(p.x, l);
-                    j++;
-                }
-                break;
-            case Black :
-                // move tempB to toSup
-                while (j>0) {
-                    j--;
-                    toSup[k] = tempB[j];
-                    tempB[j] = empty ;
-                    k++;
-                }
-                // put switchB to true
-                switchB = true ;
-                // add to tempW if (switchW)
-                if(switchW){
-                    tempW[i]=initCoord(p.x, l);
-                    i++;
-                }
-                break;
-            default :
-                // clear tempW & tempB
-                while (j>0) {
-                    j--;
-                    tempB[j] = empty ;
-                }
-                while (i>0){
-                    i--;
-                    tempW[i] = empty ;
-                }
-                // And set switchB & switchW to false
-                switchB = false ;
-                switchW = false ;
-                break;
-        }
-    }
-
-    // clear tempW & tempB
-    while (j>0) {
-        j--;
-        tempB[j] = empty ;
-    }
-    while (i>0){
-        i--;
-        tempW[i] = empty ;
-    }
-    // And set switchB & switchW to false
-    switchB = false ;
-    switchW = false ;
-
-    // And then the two vertical ones
-    for(int l = 0; l<b->length;l++){
-        switch(b->board[l][p.y]){
-            case White :
-                // move tempW to toSup
-                while (i>0) {
-                    i--;
-                    toSup[k] = tempW[i];
-                    tempW[i] = empty ;
-                    k++;
-                }
-                // put switchW to true
-                switchW = true ;
-                // add to tempB if (switchB)
-                if(switchB){
-                    tempB[j]=initCoord(l, p.y);
-                    j++;
-                }
-                break;
-            case Black :
-                // move tempB to toSup
-                while (j>0) {
-                    j--;
-                    toSup[k] = tempB[j];
-                    tempB[j] = empty ;
-                    k++;
-                }
-                // put switchB to true
-                switchB = true ;
-                // add to tempW if (switchW)
-                if(switchW){
-                    tempW[i]=initCoord(l, p.y);
-                    i++;
-                }
-                break;
-            default :
-                // clear tempW & tempB
-                while (j>0) {
-                    j--;
-                    tempB[j] = empty ;
-                }
-                while (i>0) {
-                    i--;
-                    tempW[i] = empty ;
-                }
-                // And set switchB & switchW to false
-                switchB = false ;
-                switchW = false ;
-                break;
-        }
-    }
-    bool ret = true ;
-    bool tempBool ;
-    for (int l = 0; l < k; l++) {
-        if(((toSup[l]).x!=-1) && ((toSup[l]).y!=-1)){
-            tempBool = removePawn(b, toSup[l]);
-            if (tempBool){
-                refreshPMAfterMove(*b, toSup[l]);
-            } else {
-                ret = false ;
-            }
-        }
-    }
-
-    return ret ;
+    printf("\n");
 }
 
 void rules(){

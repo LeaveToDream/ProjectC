@@ -3,7 +3,7 @@
 #include <stdbool.h>
 
 #include "../c-head/board.h"
-#include "../c-head/game.h"
+#include "../c-head/gameNoUI.h"
 
 Board initBoard(Level level){
     Board b;
@@ -21,16 +21,8 @@ Board initBoard(Level level){
             b.possibleMove[i][j]= (Coord *) malloc(sizeof(Coord)*2*n);
         }
     }
-
-
+    // Then instancing vars
     b.length = n ;
-
-    //b.blackCount = (int *) malloc(sizeof(int));
-    //b.whiteCount = (int *) malloc(sizeof(int));
-
-    //*(b.blackCount) = 0 ;
-    //*(b.whiteCount) = 0 ;
-
     return b;
 }
 
@@ -66,6 +58,14 @@ Board fillBoard(Board b){
         possibleMove(b, initCoord(line,j));
         // the board, and coordinate of the pawn to process
     }
+    for(line = 1; line <n-1; line++){
+        for(int j = 0; j < n; j++) {
+            possibleMove(b, initCoord(line,j));
+            // the board, and coordinate of the pawn to process
+        }
+    }
+
+
     line = n-1;
     for(int j = 0; j < n; j++) {
         possibleMove(b, initCoord(line,j));
@@ -216,45 +216,128 @@ bool removePawn(Board *b, Coord p){
                 (b->blackCount)--;
         }
         b->board[p.x][p.y]=None;
-        printf("Pawn eaten at location %c%d\n", numberToLetter(p.x), p.y);
+        //printf("Pawn eaten at location %c%d\n", numberToLetter(p.x), p.y);
         return true;
     }
     return false ;
 }
 
-void display(Board b) {
-    char none = '.', black = 'b', white = 'w';
-    printf("  ");
-    for (int i = 0; i < b.length; i++) {
-        printf("%d ", i);
+Status resolveGame(Board* b){
+    if(b->whiteCount<2 && b->blackCount<2){
+        return Draw ;
+    } else if(b->whiteCount<2) {
+        return BlackPlayer ;
+    } else if(b->blackCount<2) {
+        return WhitePlayer ;
     }
 
-    printf("\n");
+    return Playing;
+}
 
-    for (int i = 0; i < b.length; i++) {
+bool resolveMove(Board* b, Coord p){
+    Pawn side = b->board[p.x][p.y] ;
+    Coord empty = initCoord(-1, -1);
+    Coord tempCoord ;
+    Coord tempToSup[b->length]; int i = 0 ;
+    Coord toSup[b->length*2]; int j = 0 ;
 
-        // Line number
-        printf("%c ", numberToLetter(i));
+    for(int l = 0, ll = 0; l<b->length;l++){
+        tempToSup[l] = empty ;
+        toSup[ll] = empty ;
+        ll++;
+        toSup[ll] = empty ;
+        ll++;
+    } // Initialize tab with empty coord
 
-        for (int j = 0; j < b.length; j++) {
+    tempCoord = p ;
+    bool switchPawn = false ;
+    // Test up, right, bottom, left
+    // bottom
+    printf("bottom");
+    fflush(stdout);
+    tempCoord.x+=1;
+    while(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==enemyPawn(side)){
+        tempToSup[i]=tempCoord;
+        i++;
+        tempCoord.x+=1;
+    } //
+    if(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==side&&i>0){
+        i--;
+        toSup[j] = tempToSup[i];
+        tempToSup[i] = empty ;
+        j++;
+    }
 
-            switch (b.board[i][j]) {
-                case Black:
-                    printf("%c ", black);
-                    break;
-                case White:
-                    printf("%c ", white);
-                    break;
-                default:
-                    printf("%c ", none);
-                    break;
+    // top
+
+    printf("-top");
+    fflush(stdout);
+    tempCoord = p ;
+    tempCoord.x-=1;
+    while(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==enemyPawn(side)){
+        tempToSup[i]=tempCoord;
+        i++;
+        tempCoord.x-=1;
+    }
+    if(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==side&&i>0){
+        i--;
+        toSup[j] = tempToSup[i];
+        tempToSup[i] = empty ;
+        j++;
+    }
+
+    // right
+    printf("-right");
+    fflush(stdout);
+    tempCoord = p ;
+    tempCoord.y+=1;
+    while(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==enemyPawn(side)){
+        tempToSup[i]=tempCoord;
+        i++;
+        tempCoord.y+=1;
+    } //
+    if(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==side&&i>0){
+        i--;
+        toSup[j] = tempToSup[i];
+        tempToSup[i] = empty ;
+        j++;
+    }
+
+    // top
+    printf("-top");
+    fflush(stdout);
+    tempCoord = p ;
+    tempCoord.y-=1;
+    while(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==enemyPawn(side)){
+        tempToSup[i]=tempCoord;
+        i++;
+        tempCoord.y-=1;
+    }
+    if(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==side&&i>0){
+        i--;
+        toSup[j] = tempToSup[i];
+        tempToSup[i] = empty ;
+        j++;
+    }
+
+    printf("-drop \n");
+    fflush(stdout);
+    bool ret = true ;
+    bool tempBool ;
+    for (int l = 0; l < j; l++) {
+        if(((toSup[l]).x!=-1) && ((toSup[l]).y!=-1)){
+            tempBool = removePawn(b, toSup[l]);
+            if (tempBool){
+                refreshPMAfterMove(*b, toSup[l]);
+            } else {
+                ret = false ;
             }
         }
-        printf("\n");
     }
+    return ret ;
 
-    printf("\n");
-}
+}/**/
+
 
 void freeBoard(Board b){
     int n = b.length;

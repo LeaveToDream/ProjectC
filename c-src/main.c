@@ -3,11 +3,13 @@
 #include <stdbool.h>
 
 #include "../c-head/main.h"
-#include "../c-head/game.h"
+#include "../c-head/gameNoUI.h"
+#include "../c-head/gameUI.h"
 #include "../c-head/getLine.h"
 #include "../c-head/gui.h"
 
 int main (int argc, char* argv[]){
+  playAGameUI(NORMAL);
   char input[20] ;
   int retour;
   printf("Hello World\n");
@@ -59,5 +61,5 @@ int game(){
   }
 }
 int testUserInterface(){
-    testUI();
+    playAGameUI(NORMAL);
 }

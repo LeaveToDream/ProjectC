@@ -5,12 +5,13 @@ set(CMAKE_CXX_STANDARD 11)
 
 
 set(SOURCE_FILES
-        c-src/main.c    c-head/main.h
-        c-src/game.c    c-head/game.h
-        c-src/board.c   c-head/board.h
-        c-src/find.c    c-head/find.h
-        c-src/gui.c     c-head/gui.h
-        c-head/getLine.h c-src/getLine.c)
+        c-src/main.c        c-head/main.h
+        c-src/gameNoUI.c    c-head/gameNoUI.h
+        c-src/board.c       c-head/board.h
+        c-src/find.c        c-head/find.h
+        c-src/gui.c         c-head/gui.h
+        c-src/getLine.c     c-head/getLine.h
+        c-src/gameUI.c      c-head/gameUI.h)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${ProjectC_SOURCE_DIR}/c-lib/cmake")
 

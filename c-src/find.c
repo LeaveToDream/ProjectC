@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 #include "../c-head/board.h"
-#include "../c-head/game.h"
+#include "../c-head/gameNoUI.h"
 #include "../c-head/find.h"
 
 
