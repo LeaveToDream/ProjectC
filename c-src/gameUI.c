@@ -111,10 +111,10 @@ Coord playerTurnUI(Resources* res, Board* b, Pawn side){
             return initCoord(-1,4) ;
         } else if(event.zone==BOARD){
             int x1, y1, x2, y2 ;
-            //TODO gerer que le joueur prend pas les pions de son pote
             locationCoord = eventToCoord(&event);
             x1 = locationCoord.x ;
             y1 = locationCoord.y ;
+            //TODO Reactiver la prise de pion par joueur
             if(b->board[x1][y1]==side){
                 displayPossibleMoveUI(res, b, locationCoord );
                 bool targetSelected = false ;
@@ -146,6 +146,7 @@ Coord playerTurnUI(Resources* res, Board* b, Pawn side){
                     } else if(event.zone==BUTTONS) {
                         if (MYSDL_isInRect(res->buttonPassRect, event)) {
                             //pass
+                            displayBoardUI(res, b);
                             return initCoord(-1, 1);
                         } else if (MYSDL_isInRect(res->buttonGiveUpRect, event)) {
                             //give up
