@@ -108,8 +108,6 @@ void possibleMove(Board b, Coord c){
             b.possibleMove[c.x][c.y][i]=initCoord(-1,-1);
         }
     }
-    printf("Banana pre test (pawn at %d,%d)\n",c.x,c.y);
-    fflush(stdout);
     if(b.board[c.x][c.y]!=None){
         int x, y, i=0;
         Pawn p = b.board[c.x][c.y];
@@ -145,8 +143,6 @@ void possibleMove(Board b, Coord c){
             i++;
         }
 
-        printf("Banana pre jump\n");
-        fflush(stdout);
         // Si un Pawn est au contact
         y = c.y;
 
@@ -179,8 +175,6 @@ void possibleMove(Board b, Coord c){
             }
         }
         // Dab
-        printf("Banana post jump\n");
-        fflush(stdout);
     }
 }
 
@@ -268,8 +262,8 @@ bool resolveMove(Board* b, Coord p){
     bool switchPawn = false ;
     // Test up, right, bottom, left
     // bottom
-    printf("bottom");
-    fflush(stdout);
+    //printf("bottom");
+    //fflush(stdout);
     tempCoord.x+=1;
     while(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==enemyPawn(side)){
         tempToSup[i]=tempCoord;
@@ -284,11 +278,15 @@ bool resolveMove(Board* b, Coord p){
             j++;
         }
     }
+    while(i>0) {
+        i--;
+        tempToSup[i] = empty;
+    }
 
     // top
 
-    printf("-top");
-    fflush(stdout);
+    //printf("-top");
+    //fflush(stdout);
     tempCoord = p ;
     tempCoord.x-=1;
     while(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==enemyPawn(side)){
@@ -304,10 +302,14 @@ bool resolveMove(Board* b, Coord p){
             j++;
         }
     }
+    while(i>0) {
+        i--;
+        tempToSup[i] = empty;
+    }
 
     // right
-    printf("-right");
-    fflush(stdout);
+    //printf("-right");
+    //fflush(stdout);
     tempCoord = p ;
     tempCoord.y+=1;
     while(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==enemyPawn(side)){
@@ -323,10 +325,14 @@ bool resolveMove(Board* b, Coord p){
             j++;
         }
     }
+    while(i>0) {
+        i--;
+        tempToSup[i] = empty;
+    }
 
     // top
-    printf("-top");
-    fflush(stdout);
+    //printf("-top");
+    //fflush(stdout);
     tempCoord = p ;
     tempCoord.y-=1;
     while(isInBoard(*b, tempCoord)&&b->board[tempCoord.x][tempCoord.y]==enemyPawn(side)){
@@ -343,8 +349,8 @@ bool resolveMove(Board* b, Coord p){
         }
     }
 
-    printf("-drop \n");
-    fflush(stdout);
+    //printf("-drop \n");
+    //fflush(stdout);
     bool ret = true ;
     bool tempBool ;
     for (int l = 0; l < j; l++) {
