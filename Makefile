@@ -1,6 +1,6 @@
 
-c-bin/main : c-bin c-out/main.o c-out/board.o c-out/gameNoUI.o c-out/gameUI.o c-out/find.o c-out/getLine.o
-	gcc -Wall -o c-bin/main c-out/* -lSDL2
+c-bin/main : c-bin c-out/main.o c-out/board.o c-out/gameNoUI.o c-out/gui.o c-out/gameUI.o c-out/find.o c-out/getLine.o
+	gcc -Wall -o c-bin/play c-out/* -lSDL2 -lSDL2_image
 
 c-out/main.o : c-out c-src/main.c
 	gcc -Wall -c c-src/main.c  -o c-out/main.o
@@ -25,6 +25,7 @@ c-out/gui.o : c-src/gui.c
 
 clean :
 	rm c-out/* -f
+	rm c-bin/* -f
 
 c-bin :
 	mkdir c-bin

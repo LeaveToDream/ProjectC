@@ -1,10 +1,10 @@
 # ProjectC
-C Project for the first year in Telecom Nancy. 
+C Project for the first year in Telecom Nancy.
 Subject is manipulate C language and build a game choosed between 5. The one we choosed is Hasami Shogi.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
@@ -18,7 +18,8 @@ You need :
 
 To run the program, download sources, compile and execute.
 
-Compile through 
+If you're on Linux environment :
+Compile through
 
 ```
 make
@@ -27,9 +28,12 @@ make
 And execute through
 
 ```
-./c-bin/play
+cd c-bin/
+./play
 ```
+(executing through `./c-bin/play` leads to unexepected behaviors).
 
+If you're on Windows, using CLion, just import project without overwritting CMakeList.txt, and let CLion produce .exe. Then, start with a double clik on it or via CLion directly.
 
 ## Running the tests
 
@@ -49,7 +53,7 @@ No contribution allowed during examination period.
 
 We are willing to use [SemVer](http://semver.org/) for versioning.
 
-For the versions available, we will try to set up [tags on this repository](https://github.com/ProjectC/tags). 
+For the versions available, we will try to set up [tags on this repository](https://github.com/ProjectC/tags).
 
 ## Authors
 
@@ -69,5 +73,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * [Nicolas Joseph](http://nicolasj.developpez.com/articles/libc/string/) for string utility
 * much more to come
 
-##To do 
+##To do
 * GUI

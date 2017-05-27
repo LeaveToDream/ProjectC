@@ -13,25 +13,29 @@
 
 int playAGameUI(){
     // Initialise board, and fill it with pawn of the right color at the right location
+    Status winner ;
     printf("Starting a new game\n");
-    Resources * res = initRes() ;
-    
-    printf("Resources loaded\n");
     Board b = initBoard();
     b = fillBoard(b);
     printf("Board instanced\n");
-    Status winner = gamePvPUI(b, res);
-    if(!(winner==Exit||winner==Quit)){
-        displayWinningColorUI(res, winner);
-        Event event = waitForCardEvent(res);
-        if(event.zone==CARD_RESTART){
-            printf("Game ended\n");
-            freeBoard(b);
-            printf("Board cleaned\n");
-            freeRes(res);
-            printf("Resources cleaned\n");
-            return 2;
-        }
+    Resources * res = initRes() ;
+    if(res->state==1){
+      printf("Resources loaded\n");
+      winner = gamePvPUI(b, res);
+      if(!(winner==Exit||winner==Quit)){
+          displayWinningColorUI(res, winner);
+          Event event = waitForCardEvent(res);
+          if(event.zone==CARD_RESTART){
+              printf("Game ended\n");
+              freeBoard(b);
+              printf("Board cleaned\n");
+              freeRes(res);
+              printf("Resources cleaned\n");
+              return 2;
+          }
+      }
+    } else {
+        winner = Exit ;
     }
     printf("Game ended\n");
     freeBoard(b);

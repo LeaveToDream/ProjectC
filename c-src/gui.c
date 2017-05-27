@@ -124,7 +124,7 @@ Event waitForUsefulEvent(Resources *res){
     Event event = {UNDEF, NONE, 0, 0};
     int i = 0 ;
     bool usefullEventAppeared = false ;
-    printf("Wainting for usefull event ");
+    printf("Waiting for usefull event ");
     while(!usefullEventAppeared){
         printf(".");
         SDL_WaitEvent(&events);
@@ -172,14 +172,14 @@ Event waitForUsefulEvent(Resources *res){
 Event waitForCardEvent(Resources* res){
     SDL_Event events ;
     Event event = {UNDEF, NONE, 0, 0};
-    printf("Wainting for card event ");
+    printf("Waiting for card event ");
     bool usefullEventAppeared = false ;
     while(!usefullEventAppeared){
         printf(".");
         SDL_WaitEvent(&events);
         switch (events.type){
             case SDL_QUIT:
-                printf("QUIT CMD\n");
+                printf("\nQUIT CMD\n");
                 fflush(stdout);
                 event.type = QUIT;
                 usefullEventAppeared = true ;
@@ -190,11 +190,11 @@ Event waitForCardEvent(Resources* res){
                 event.y = (int) events.button.y;
 
                 if(MYSDL_PointingRect(res->cardRestartRect, event.x, event.y)){
-                    printf("RESTART CMD\n");
+                    printf("\nRESTART CMD\n");
                     event.zone=CARD_RESTART ;
                     usefullEventAppeared = true ;
                 } else if(MYSDL_PointingRect(res->cardQuitRect, event.x, event.y)){
-                    printf("QUIT CMD\n");
+                    printf("\nQUIT CMD\n");
                     event.zone=CARD_QUIT ;
                     usefullEventAppeared = true ;
                 }
