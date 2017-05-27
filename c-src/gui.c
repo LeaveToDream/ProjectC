@@ -13,8 +13,8 @@ const int SCREEN_HEIGHT = 640;
 const int BOARD_X_ORIG = 50 ;
 const int BOARD_Y_ORIG = 50 ;
 
-const int CARD_X_ORIG = 140 ;
-const int CARD_Y_ORIG = 130 ;
+const int CARD_X_ORIG = 120 ;
+const int CARD_Y_ORIG = 120 ;
 
 const int PLAYER_X_ORIG = 640 ;
 const int PLAYER_Y_ORIG = 50 ;
