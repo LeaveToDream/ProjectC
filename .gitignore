@@ -236,3 +236,12 @@ cmake-build-debug/CMakeCache.txt
 *.o
 c-out/*
 c-bin/*
+#c-bin/
+#c-out/
+cmake-build-debug/CMakeFiles/3.7.1/CompilerIdC/a.out
+cmake-build-debug/CMakeFiles/3.7.1/CompilerIdCXX/a.out
+cmake-build-debug/CMakeFiles/CMakeTmp/
+cmake-build-debug/CMakeFiles/ProjectC.dir/c-src/
+cmake-build-debug/ProjectC
+c-bin/
+c-out/

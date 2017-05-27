@@ -1,8 +1,21 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
+
+#include "../c-head/ia.h"
+
+bool moveIA(Board* b, coord* x, coord* y){
+    negamaxAB_IA();
+}
 
 
-int negamaxAB(Board B, Coord lastMove, int A, int B, int depth, int difficulty){
+int negamaxAB_IA(Board B, infInt A, infInt B, int depth, int difficulty){
+    specialInt bestValue, alpha, beta;
+    int count, moveValuation;
+    alpha.type = A.type;
+    alpha.value = A.value;
+    beta.type = B.type;
+    beta.value = B.value;
 	switch(resolveGame(B, lastMove)){
 		case Bot :
 			return moveValue(Bot, depth);
@@ -14,18 +27,24 @@ int negamaxAB(Board B, Coord lastMove, int A, int B, int depth, int difficulty){
 			if (depth == difficulty){
 				return moveValue(Playing, depth);
 			}
-			bestValue = NULL;
+			bestValue.type = negInf;
 			int count = 0;
 			State* nextBoards = nextState(B, &count); //penser à mettre dans count le nombre d'éléments
 			for (int i = 0; i < count; ++i)
 			{
 				nextBoard = stateToBoard(nextBoards[i]);
-				value = -negamaxAB(nextBoard, lastMove, -B, -A, depth + 1);
-				if (bestValue == NULL){
-					bestValue == value;
-				} else if (value > bestValue) {
-					bestValue = value;
-					if (bestValue>A){
+                //TODO faire une fonction qui prend l'inverse d'un infInt
+				moveValuation = -negamaxAB(nextBoard, -beta, -alpha, depth + 1);
+				if (bestValue.type == negInf){
+					bestValue.type = value;
+                    bestValue.value = moveValuation;
+				} else if (value > bestValue.value) {
+					bestValue.value = moveValuation;
+                    if (alpha.type == negInf){
+                        alpha.type = value;
+                        alpha.value = bestValue.value;
+                    }
+					if (bestValue.value>alpha.value){
 						A = bestValue;
 						if (A>B){
 							return bestValue;
@@ -52,10 +71,4 @@ int moveValue(Board B, Status s, int depth){
         case Playing :
             return (B.whiteCount - B.balckCount);
     }
-}
-
-int main(int argc, char const *argv[])
-{
-	/* code */
-	return 0;
 }
