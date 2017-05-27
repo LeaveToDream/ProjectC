@@ -11,25 +11,33 @@
 #include "../c-head/gui.h"
 
 
-
-
 int playAGameUI(){
     // Initialise board, and fill it with pawn of the right color at the right location
+    printf("Starting a new game\n");
     Resources * res = initRes() ;
+    
+    printf("Resources loaded\n");
     Board b = initBoard();
     b = fillBoard(b);
+    printf("Board instanced\n");
     Status winner = gamePvPUI(b, res);
     if(!(winner==Exit||winner==Quit)){
         displayWinningColorUI(res, winner);
         Event event = waitForCardEvent(res);
         if(event.zone==CARD_RESTART){
+            printf("Game ended\n");
             freeBoard(b);
+            printf("Board cleaned\n");
             freeRes(res);
+            printf("Resources cleaned\n");
             return 2;
         }
     }
+    printf("Game ended\n");
     freeBoard(b);
+    printf("Board cleaned\n");
     freeRes(res);
+    printf("Resources cleaned\n");
     if(winner==Exit){
         return 1;
     }
@@ -42,7 +50,7 @@ Status gamePvPUI(Board b, Resources* res){
     Status state ;
     displayBoardUI(res, &b);
     while(true){
-        printf("ligne 31\n");
+        printf("Start of a round\n");
         displayPlayingColorUI(res, White);
         turnReturn = playerTurnUI(res, &b, White);
         if(isInBoard(b, turnReturn)){ // Turn went right
@@ -102,7 +110,7 @@ Coord playerTurnUI(Resources* res, Board* b, Pawn side){
     Coord locationCoord, targetCoord ;
     Event event ;
     while(true){
-        printf("ligne 104\n");
+        printf("Start of a player turn(%d)\n", (int) side);
         //printf(">>> ");
         event = waitForUsefulEvent(res);
         // Some process to determine whether player wants to play, pass,
@@ -114,12 +122,11 @@ Coord playerTurnUI(Resources* res, Board* b, Pawn side){
             locationCoord = eventToCoord(&event);
             x1 = locationCoord.x ;
             y1 = locationCoord.y ;
-            //TODO Reactiver la prise de pion par joueur
             if(b->board[x1][y1]==side){
                 displayPossibleMoveUI(res, b, locationCoord );
                 bool targetSelected = false ;
                 while(!targetSelected){
-                    printf("ligne 121\n");
+                    printf("Pawn (%d,%d) selected, waiting for valid target location or cancel.\n", x1, y1);
                     event = waitForUsefulEvent(res);
                     if(event.type==QUIT){
                         return initCoord(-1,4) ;

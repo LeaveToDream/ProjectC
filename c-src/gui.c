@@ -1,10 +1,10 @@
+#include <stdlib.h>
 #include <memory.h>
 #include <stdbool.h>
 #include <SDL2/SDL.h>
 
 #include "../c-head/gui.h"
 #include "../c-head/board.h"
-
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 860;
@@ -130,7 +130,7 @@ Event waitForUsefulEvent(Resources *res){
         SDL_WaitEvent(&events);
         switch (events.type){
             case SDL_QUIT:
-                printf("QUIT CMD\n");
+                printf("\nQUIT CMD\n");
                 fflush(stdout);
                 event.type = QUIT;
                 usefullEventAppeared = true ;
@@ -151,10 +151,11 @@ Event waitForUsefulEvent(Resources *res){
                 event.y = (int) events.button.y;
 
                 if(MYSDL_PointingRect(res->boardRect, event.x, event.y)){
+                    printf("\nBOARD in wait event \n");
                     event.zone=BOARD ;
                     usefullEventAppeared = true ;
                 } else if(MYSDL_PointingRect(res->buttonRect, event.x, event.y)){
-                    printf("BUTTONS in wait event \n");
+                    printf("\nBUTTONS in wait event \n");
                     event.zone=BUTTONS ;
                     usefullEventAppeared = true ;
                 }
@@ -164,7 +165,7 @@ Event waitForUsefulEvent(Resources *res){
                 break;
         }
     }
-    printf("\n");
+    printf("-----------------------------------------------------------------\n");
     return event ;
 }
 

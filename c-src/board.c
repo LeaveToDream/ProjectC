@@ -259,7 +259,6 @@ bool resolveMove(Board* b, Coord p){
     } // Initialize tab with empty coord
 
     tempCoord = p ;
-    bool switchPawn = false ;
     // Test up, right, bottom, left
     // bottom
     //printf("bottom");
