@@ -8,8 +8,24 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include <SDL2_image/SDL_image.h>
 #include "board.h"
+
+//Screen dimension constants
+const int SCREEN_WIDTH = 860;
+const int SCREEN_HEIGHT = 640;
+
+const int BOARD_X_ORIG = 50 ;
+const int BOARD_Y_ORIG = 50 ;
+
+const int CARD_X_ORIG = 120 ;
+const int CARD_Y_ORIG = 120 ;
+
+const int PLAYER_X_ORIG = 640 ;
+const int PLAYER_Y_ORIG = 50 ;
+
+const int PAWN_X_ORIG = 760 ;
+const int PAWN_Y_ORIG = 45 ;
 
 typedef struct Resources Resources ;
 typedef struct Event Event ;

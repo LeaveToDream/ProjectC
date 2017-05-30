@@ -9,9 +9,10 @@
 #include "../c-head/gameUI.h"
 #include "../c-head/board.h"
 #include "../c-head/gui.h"
+#include "../c-head/ia.h"
 
 
-int playAGameUI(){
+int playAGameUI(Level difficulty){
     // Initialise board, and fill it with pawn of the right color at the right location
     Status winner ;
     printf("Starting a new game\n");
@@ -53,6 +54,70 @@ Status gamePvPUI(Board b, Resources* res){
     Coord turnReturn ;
     Status state ;
     displayBoardUI(res, &b);
+    displayBoardUI(res, &b);
+    while(true){
+        printf("Start of a round\n");
+        displayPlayingColorUI(res, White);
+        turnReturn = playerTurnUI(res, &b, White);
+        if(isInBoard(b, turnReturn)){ // Turn went right
+            passCount = 0 ;
+            if((state = resolveGame(&b))!= Playing ){
+                return state ;
+            } else {
+                displayBoardUI(res, &b);
+                displayBoardUI(res, &b);
+            }
+        } else if(turnReturn.x == -1 ){
+            switch(turnReturn.y){
+                case 1 : // Player passed
+                    passCount = passCount + 1 ;
+                    if(passCount >= 2){ // Draw check
+                        return Draw ;
+                    }
+                    break ;
+                case 2 : // Player gave up
+                    return BlackPlayer ;
+                case 3 : // Soft quit
+                    return Quit ;
+                case 4 : // Hard quit
+                    return Exit ;
+            }
+        }
+
+        displayPlayingColorUI(res, Black);
+        turnReturn = playerTurnUI(res, &b, Black);
+        if(isInBoard(b, turnReturn)){ // Turn went right
+            passCount = 0 ;
+            if((state = resolveGame(&b))!= Playing ){
+                return state ;
+            } else {
+                displayBoardUI(res, &b);
+                displayBoardUI(res, &b);
+            }
+        } else if(turnReturn.x == -1 ){
+            switch(turnReturn.y){
+                case 1 : // Player passed
+                    passCount = passCount + 1 ;
+                    if(passCount >= 2){ // Draw check
+                        return Draw ;
+                    }
+                    break ;
+                case 2 : // Player gave up
+                    return WhitePlayer ;
+                case 3 : // Soft quit
+                    return Quit ;
+                case 4 : // Hard quit
+                    return Exit ;
+            }
+        }
+    }
+}
+
+Status gameIAUI(Board b, Resources* res, Level difficulty){
+    int passCount = 0 ;
+    Coord turnReturn ;
+    Status state ;
+    displayBoardUI(res, &b);
     while(true){
         printf("Start of a round\n");
         displayPlayingColorUI(res, White);
@@ -82,7 +147,7 @@ Status gamePvPUI(Board b, Resources* res){
         }
 
         displayPlayingColorUI(res, Black);
-        turnReturn = playerTurnUI(res, &b, Black);
+        turnReturn = IATurnUI(res, &b, Black, difficulty);
         if(isInBoard(b, turnReturn)){ // Turn went right
             passCount = 0 ;
             if((state = resolveGame(&b))!= Playing ){
@@ -90,22 +155,7 @@ Status gamePvPUI(Board b, Resources* res){
             } else {
                 displayBoardUI(res, &b);
             }
-        } else if(turnReturn.x == -1 ){
-            switch(turnReturn.y){
-                case 1 : // Player passed
-                    passCount = passCount + 1 ;
-                    if(passCount >= 2){ // Draw check
-                        return Draw ;
-                    }
-                    break ;
-                case 2 : // Player gave up
-                    return WhitePlayer ;
-                case 3 : // Soft quit
-                    return Quit ;
-                case 4 : // Hard quit
-                    return Exit ;
-            }
-        }
+        } else {} //TODO debug
     }
 }
 
@@ -191,5 +241,25 @@ Coord playerTurnUI(Resources* res, Board* b, Pawn side){
             printf("Invalid command. Please try again. Type help to get help.\n");
         }
 
+    }
+}
+
+Coord IATurnUI(Resources* res, Board* b, Pawn side, Level difficulty) {
+    int maxDepth;
+    Move move = initMove(initCoord(-1, -1), initCoord(-1, -1));
+    if (difficulty == EASY) {
+        maxDepth = 2;
+    }
+    if (difficulty == NORMAL) {
+        maxDepth = 2;
+    }
+    if (difficulty == HARDCORE) {
+        maxDepth = 2;
+    }
+    ValuedMove IAMove = negamaxAB_IA(*b, -100, 100, 0, maxDepth, Black, move);
+    bool checkMove = movePawn(*b, IAMove.move.from, IAMove.move.to);
+    if (checkMove) {
+        resolveMove(b, IAMove.move.to);
+        return IAMove.move.to;
     }
 }

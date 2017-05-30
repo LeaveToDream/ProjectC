@@ -366,6 +366,39 @@ bool resolveMove(Board* b, Coord p){
 
 }
 
+Board copyBoard(Board b){
+    Board res;
+    res.whiteCount = b.whiteCount;
+    res.blackCount = b.blackCount;
+    res.length = b.length;
+    int n = res.length;
+    // Preparing pawn board
+    res.board = (Pawn **) malloc(sizeof(Pawn*)*n);
+    for(int i = 0; i<n;i++){
+        res.board[i]= (Pawn *) malloc(sizeof(Pawn)*n);
+    }
+    // Preparing possibleMove board
+    res.possibleMove = (Coord ***) malloc(sizeof(Coord**)*n);
+    for(int i = 0; i<n;i++){
+        res.possibleMove[i]= (Coord **) malloc(sizeof(Coord*)*n);
+        for (int j = 0; j < n; j++) {
+            res.possibleMove[i][j]= (Coord *) malloc(sizeof(Coord)*2*n);
+        }
+    }
+    // Copying pawn board
+    for(int i = 0; i<n;i++){
+        res.board[i]= b.board[i];
+    }
+
+    //Copying possibleMove board
+    for(int i = 0; i<n;i++){
+        for (int j = 0; j < n; j++) {
+            res.possibleMove[i][j]= b.possibleMove[i][j];
+        }
+    }
+    return res;
+}
+
 void freeBoard(Board b){
     int n = b.length;
     // freeing pawn board
@@ -382,4 +415,8 @@ void freeBoard(Board b){
         free(b.possibleMove[i]);
     }
     free(b.possibleMove);
+}
+
+bool compareCoord(Coord c1, Coord c2){
+    return ((c1.x == c2.x)&&(c1.y == c2.y));
 }

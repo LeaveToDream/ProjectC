@@ -4,19 +4,26 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include "board.h"
 
-typedef enum {value, posInf, negInf} specialInt;
+typedef struct Move Move;
+typedef struct ValuedMove ValuedMove;
 
-typedef struct infInt {
-    specialInt type;
+struct Move {
+    Coord from;
+    Coord to;
+};
+
+struct ValuedMove {
     int value;
-} infInt;
+    Move move;
+};
 
-
-int main(nt argc, char const *argv[]);
-int negamaxAB_IA(Board B, specialInt A, specialInt B, int depth, int difficulty);
-int moveValue(Board B);
-int evaluatePawnPotential(Board B);
-bool moveIA(Board* b, coord* x, coord* y);
+ValuedMove negamaxAB_IA(Board b, int A, int B, int depth, int difficulty, Pawn color, Move lastMove);
+int moveValue(Board B, Status s, int depth);
+void initListPossibleMove(Move* listPossibleMove);
+int generateListePossibleMove(Move* listPossibleMove, Board b, int* count, Pawn color);
+Move initMove(Coord c1, Coord c2);
+ValuedMove initValuedMove(int value, Move move);
 
 #endif
