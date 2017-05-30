@@ -6,14 +6,6 @@
 #include "../c-head/ia.h"
 #include "../c-head/board.h"
 
-<<<<<<< HEAD
-int negamaxAB_IA(Board b, int A, int B, int depth, int difficulty, Pawn color){
-    int moveValuation, bestValue, alpha, beta;
-    int* count;
-    alpha = A;
-    beta = B;
-	switch(resolveGame(b, lastMove)){
-=======
 ValuedMove negamaxAB_IA(Board b, int A, int B, int depth, int difficulty, Pawn color, Move lastMove){
     int moveValuation, alpha, beta;
     int* count;
@@ -23,7 +15,6 @@ ValuedMove negamaxAB_IA(Board b, int A, int B, int depth, int difficulty, Pawn c
     alpha = A;
     beta = B;
 	switch(resolveGame(&b)){
->>>>>>> fdc9416ac6735158f588b8710a3e0b05b53d11d2
 		case Bot :
 			return initValuedMove(moveValue(b, Bot, depth),lastMove);
 		case WhitePlayer :
@@ -34,8 +25,7 @@ ValuedMove negamaxAB_IA(Board b, int A, int B, int depth, int difficulty, Pawn c
 			if (depth == difficulty){
 				return initValuedMove(moveValue(b, Playing, depth),lastMove);
 			}
-<<<<<<< HEAD
-			bestValue = -100;
+			int bestValue = -100;
 			int count = 0;
 
             Move listPossibleMove[144];
@@ -52,7 +42,6 @@ ValuedMove negamaxAB_IA(Board b, int A, int B, int depth, int difficulty, Pawn c
                         alpha = bestValue;
                         if (alpha>beta){
                             return bestValue;
-=======
 			*count = 0;
 
             Move listPossibleMove[144];
@@ -71,7 +60,6 @@ ValuedMove negamaxAB_IA(Board b, int A, int B, int depth, int difficulty, Pawn c
                         alpha = bestMove.value;
                         if (alpha>beta){
                             return bestMove;
->>>>>>> fdc9416ac6735158f588b8710a3e0b05b53d11d2
                         }
                     }
                 }
@@ -138,12 +126,13 @@ int generateListePossibleMove(Move* listPossibleMove, Board b, int* count, Pawn 
     return 0;
 }
 
-Move initMove(Coord c1, Coord c2){
+//Inutile
+/*Move initMove(Coord c1, Coord c2){
     Move m;
     m.from = c1;
     m.to = c2;
     return m;
-}
+}*/
 
 ValuedMove initValuedMove(int value, Move move){
     ValuedMove res;
@@ -159,7 +148,8 @@ void initListPossibleMove(Move* listPossibleMove){
     }
 }
 
-
+//Inutile
+/*
 int generateListePossibleMove(Move* listPossibleMove, Board b, int* count, Pawn color){
     Coord listPawn[9];
     int pawnCount = 0;

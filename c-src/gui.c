@@ -121,7 +121,6 @@ void displayBoardUI(Resources* res, Board* b){
 Event waitForUsefulEvent(Resources *res){
     SDL_Event events ;
     Event event = {UNDEF, NONE, 0, 0};
-    int i = 0 ;
     bool usefullEventAppeared = false ;
     printf("Waiting for usefull event ");
     while(!usefullEventAppeared){

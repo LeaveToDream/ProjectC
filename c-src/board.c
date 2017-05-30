@@ -397,11 +397,7 @@ Board copyBoard(Board b){
         }
     }
     return res;
-<<<<<<< HEAD
-};
-=======
 }
->>>>>>> fdc9416ac6735158f588b8710a3e0b05b53d11d2
 
 void freeBoard(Board b){
     int n = b.length;

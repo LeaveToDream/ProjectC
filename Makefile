@@ -1,5 +1,5 @@
 
-c-bin/main : c-bin c-out/main.o c-out/board.o c-out/gameNoUI.o c-out/gui.o c-out/gameUI.o c-out/find.o c-out/getLine.o c-out/rules.o c-out/menu.o
+c-bin/main : c-bin c-out/main.o c-out/board.o c-out/gameNoUI.o c-out/gui.o c-out/gameUI.o c-out/find.o c-out/getLine.o c-out/rules.o c-out/menu.o c-out/ia.o
 	gcc -Wall -o c-bin/play c-out/* -lSDL2 -lSDL2_image
 
 c-out/main.o : c-out c-src/main.c
@@ -30,6 +30,9 @@ c-out/menu.o : c-src/menu.c
 
 c-out/rules.o : c-src/rules.c
 	gcc -Wall -c c-src/rules.c -o c-out/rules.o
+
+c-out/ia.o : c-src/ia.c
+	gcc -Wall -c c-src/ia.c -o c-out/ia.o
 
 clean :
 	rm c-out/* -f

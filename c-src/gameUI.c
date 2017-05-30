@@ -140,10 +140,10 @@ Status gameIAUI(Board b, Resources* res, Level difficulty){
                     break ;
                 case 2 : // Player gave up
                     return BlackPlayer ;
-                case 3 : // Soft quit
-                    return Quit ;
-                case 4 : // Hard quit
-                    return Exit ;
+                case 3 : // Restart
+                    return Restart ;
+                case 4 : // Home
+                    return Home ;
             }
         }
 
@@ -254,7 +254,7 @@ Coord IATurnUI(Resources* res, Board* b, Pawn side, Level difficulty) {
     if (difficulty == NORMAL) {
         maxDepth = 2;
     }
-    if (difficulty == HARDCORE) {
+    if (difficulty == HARD) {
         maxDepth = 2;
     }
     ValuedMove IAMove = negamaxAB_IA(*b, -100, 100, 0, maxDepth, Black, move);
