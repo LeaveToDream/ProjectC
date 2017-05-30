@@ -37,6 +37,7 @@ bool movePawn(Board b, Coord p1, Coord p2);
 void refreshPMAfterMove(Board b, Coord p);
 bool removePawn(Board* b, Coord p);
 void display(Board b);
+Board copyBoard(Board b);
 void freeBoard(Board b);
 
 #endif
