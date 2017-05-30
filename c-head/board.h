@@ -9,7 +9,7 @@ typedef struct Board Board ;
 typedef struct Coord Coord ;
 
 enum Pawn {None, White, Black};
-enum Level {EASY, NORMAL, HARDCORE};
+enum Level {ALONE=0, EASY=1, NORMAL=2, HARD=3};
 enum Status {Playing, Bot, WhitePlayer, BlackPlayer, Draw, Quit, Exit};
 
 struct Board {
