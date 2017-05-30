@@ -53,6 +53,7 @@ Status gamePvPUI(Board b, Resources* res){
     Coord turnReturn ;
     Status state ;
     displayBoardUI(res, &b);
+    displayBoardUI(res, &b);
     while(true){
         printf("Start of a round\n");
         displayPlayingColorUI(res, White);
@@ -62,6 +63,7 @@ Status gamePvPUI(Board b, Resources* res){
             if((state = resolveGame(&b))!= Playing ){
                 return state ;
             } else {
+                displayBoardUI(res, &b);
                 displayBoardUI(res, &b);
             }
         } else if(turnReturn.x == -1 ){
@@ -88,6 +90,7 @@ Status gamePvPUI(Board b, Resources* res){
             if((state = resolveGame(&b))!= Playing ){
                 return state ;
             } else {
+                displayBoardUI(res, &b);
                 displayBoardUI(res, &b);
             }
         } else if(turnReturn.x == -1 ){
