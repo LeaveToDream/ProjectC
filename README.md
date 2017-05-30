@@ -28,8 +28,8 @@ make
 And execute through
 
 ```
-cd c-bin/
-./play
+sh play.sh
+
 ```
 (executing through `./c-bin/play` leads to unexepected behaviors).
 

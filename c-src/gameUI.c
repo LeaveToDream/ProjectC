@@ -22,7 +22,7 @@ int playAGameUI(){
     if(res->state==1){
       printf("Resources loaded\n");
       winner = gamePvPUI(b, res);
-      if(!(winner==Exit||winner==Quit)){
+      if(!(winner==Exit||winner==Home||winner==Restart)){
           displayWinningColorUI(res, winner);
           Event event = waitForCardEvent(res);
           if(event.zone==CARD_RESTART){
@@ -34,18 +34,19 @@ int playAGameUI(){
               return 2;
           }
       }
-    } else {
-        winner = Exit ;
     }
     printf("Game ended\n");
     freeBoard(b);
     printf("Board cleaned\n");
     freeRes(res);
     printf("Resources cleaned\n");
-    if(winner==Exit){
-        return 1;
+    if(winner==Exit||winner==Home){
+      return 1;
+    } else if (winner==Restart){
+      return 2;
+    } else {
+      return 0;
     }
-    return 0;
 }
 
 Status gamePvPUI(Board b, Resources* res){
@@ -76,10 +77,10 @@ Status gamePvPUI(Board b, Resources* res){
                     break ;
                 case 2 : // Player gave up
                     return BlackPlayer ;
-                case 3 : // Soft quit
-                    return Quit ;
-                case 4 : // Hard quit
-                    return Exit ;
+                case 3 : // Restart
+                    return Restart ;
+                case 4 : // Home
+                    return Home ;
             }
         }
 
@@ -103,10 +104,10 @@ Status gamePvPUI(Board b, Resources* res){
                     break ;
                 case 2 : // Player gave up
                     return WhitePlayer ;
-                case 3 : // Soft quit
-                    return Quit ;
-                case 4 : // Hard quit
-                    return Exit ;
+                case 3 : // Restart
+                    return Restart ;
+                case 4 : // Home
+                    return Home ;
             }
         }
     }
@@ -166,11 +167,11 @@ Coord playerTurnUI(Resources* res, Board* b, Pawn side){
                             //give up
                             return initCoord(-1, 2);
                         } else if (MYSDL_isInRect(res->buttonRestartRect, event)) {
-                            //Quit
+                            //Restart
                             return initCoord(-1, 3);
-                        } else if (MYSDL_isInRect(res->buttonRulesRect, event)) {
-                            //rules
-                            displayRules();
+                        } else if (MYSDL_isInRect(res->buttonHomeRect, event)) {
+                            //Home
+                            return initCoord(-1, 4);
                         }
                     }
 
@@ -184,11 +185,11 @@ Coord playerTurnUI(Resources* res, Board* b, Pawn side){
                 //give up
                 return initCoord(-1,2) ;
             } else if(MYSDL_isInRect(res->buttonRestartRect, event)){
-                //Quit
+                //Restart
                 return initCoord(-1,3) ;
-            } else if(MYSDL_isInRect(res->buttonRulesRect, event)){
-                //rules
-                displayRules();
+            } else if(MYSDL_isInRect(res->buttonHomeRect, event)){
+                //Home
+                return initCoord(-1,4) ;
             }
         }else {
             printf("Invalid command. Please try again. Type help to get help.\n");

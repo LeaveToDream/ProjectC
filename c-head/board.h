@@ -9,8 +9,8 @@ typedef struct Board Board ;
 typedef struct Coord Coord ;
 
 enum Pawn {None, White, Black};
-enum Level {EASY, NORMAL, HARDCORE};
-enum Status {Playing, Bot, WhitePlayer, BlackPlayer, Draw, Quit, Exit};
+enum Level {ALONE, EASY, NORMAL, HARD};
+enum Status {Playing, Bot, WhitePlayer, BlackPlayer, Draw, Restart, Home, Exit};
 
 struct Board {
     int length;
@@ -37,6 +37,7 @@ bool movePawn(Board b, Coord p1, Coord p2);
 void refreshPMAfterMove(Board b, Coord p);
 bool removePawn(Board* b, Coord p);
 void display(Board b);
+Board copyBoard(Board b);
 void freeBoard(Board b);
 
 #endif

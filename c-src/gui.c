@@ -55,14 +55,13 @@ Resources* initRes(){
 
 
             res->boardRect          = rect(50,50,540,540) ;
-            //TODO card rects
             res->cardRestartRect    = rect(CARD_X_ORIG+90,CARD_Y_ORIG+235,220,60) ;
-            res->cardQuitRect       = rect(CARD_X_ORIG+90,CARD_Y_ORIG+295,220,60) ;
+            res->cardHomeRect       = rect(CARD_X_ORIG+90,CARD_Y_ORIG+295,220,60) ;
             res->buttonRect         = rect(747,527,90,90) ;
             res->buttonPassRect     = rect(747,527,45,45) ;
             res->buttonGiveUpRect   = rect(792,527,45,45) ;
-            res->buttonRestartRect     = rect(747,572,45,45) ;
-            res->buttonRulesRect    = rect(792,572,45,45) ;
+            res->buttonRestartRect  = rect(747,572,45,45) ;
+            res->buttonHomeRect     = rect(792,572,45,45) ;
 
             return res ;
         } else {
@@ -122,7 +121,6 @@ void displayBoardUI(Resources* res, Board* b){
 Event waitForUsefulEvent(Resources *res){
     SDL_Event events ;
     Event event = {UNDEF, NONE, 0, 0};
-    int i = 0 ;
     bool usefullEventAppeared = false ;
     printf("Waiting for usefull event ");
     while(!usefullEventAppeared){
@@ -193,9 +191,9 @@ Event waitForCardEvent(Resources* res){
                     printf("\nRESTART CMD\n");
                     event.zone=CARD_RESTART ;
                     usefullEventAppeared = true ;
-                } else if(MYSDL_PointingRect(res->cardQuitRect, event.x, event.y)){
-                    printf("\nQUIT CMD\n");
-                    event.zone=CARD_QUIT ;
+                } else if(MYSDL_PointingRect(res->cardHomeRect, event.x, event.y)){
+                    printf("\nHOME CMD\n");
+                    event.zone=CARD_HOME ;
                     usefullEventAppeared = true ;
                 }
                 break;
@@ -268,13 +266,6 @@ void displayWinningColorUI(Resources* res, Status status){
     SDL_Rect rectangle = {CARD_X_ORIG, CARD_Y_ORIG, 400, 400};
     SDL_RenderCopy(res->renderer, card, NULL, &rectangle);
     SDL_RenderPresent(res->renderer); // Display everything that was painted on it
-}
-
-void displayRules(){
-    printf("rules\n");
-    //TODO add rules display. Either a web page embeded, a link, or directly in C program
-
-
 }
 
 Coord eventToCoord(Event* event){

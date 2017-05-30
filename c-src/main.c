@@ -7,15 +7,67 @@
 #include "../c-head/gameUI.h"
 #include "../c-head/getLine.h"
 #include "../c-head/gui.h"
+#include "../c-head/menu.h"
+#include "../c-head/rules.h"
+#include "../c-head/board.h"
 
-int main (int argc, char* argv[]){
+int main(int argc, char* argv[]){
+  bool running=true;
+  ResourcesMenu* res=initResMenu();
+  displayMenu(res);
+  int retour;
+  do {
+    EventMenu event = waitForMenuEvent(res);
+    if (event==PLAY){
+      freeMenu(res);
+      do{
+          retour = gameUI(ALONE);
+      }while(retour==2);
+      res=initResMenu();
+      displayMenu(res);
+    }else if (event==BUTTON_F){
+      freeMenu(res);
+      do{
+          retour = gameUI(EASY);
+      }while(retour==2);
+      res=initResMenu();
+      displayMenu(res);
+    }else if (event==BUTTON_M){
+      freeMenu(res);
+      do{
+          retour = gameUI(NORMAL);
+      }while(retour==2);
+      res=initResMenu();
+      displayMenu(res);
+      res=initResMenu(res);
+    }else if (event==BUTTON_D){
+      freeMenu(res);
+      do{
+          retour = gameUI(HARD);
+      }while(retour==2);
+      res=initResMenu();
+      displayMenu(res);
+    }else if (event==RULES){
+      freeMenu(res);
+      wrapRules();
+      res=initResMenu();
+      displayMenu(res);
+    }else if (event==QUITMENU){
+      freeMenu(res);
+      running=false;
+    }
+  }while(running);
+  return 0;
+}
+
+int oldMain (int argc, char* argv[]){
   //gameUI();
   //playAGameUI(NORMAL);
   char input[20] ;
   int retour;
   printf("Hello World\n");
   printf("Enter cmd (help to get help)\n");
-  do{ 
+  do{
       printf(">>> ");
       My_gets(input);
       if(strcmp("game",input)==0) {
@@ -38,12 +90,13 @@ int main (int argc, char* argv[]){
       }
   }while(strcmp("exit",input)!=0);
 
-  return 0 ;
+  return 0;
 }
 
 void wrong(){
   printf("Unknown cmd operator. Use help to get help.\n");
 }
+
 void help(){
   printf("game starts a new game\n");
   printf("help display help\n");
@@ -61,6 +114,6 @@ int game(){
     return 0;
   }
 }
-int gameUI(){
-    return playAGameUI(NORMAL);
+int gameUI(Level level){
+    return playAGameUI(level);
 }
