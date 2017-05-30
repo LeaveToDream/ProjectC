@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 
@@ -27,8 +28,8 @@ ValuedMove negamaxAB_IA(Board b, int A, int B, int depth, int difficulty, Pawn c
 			*count = 0;
 
             Move listPossibleMove[144];
-            initListPossibleMove(&listPossibleMove);
-            generateListePossibleMove(&listPossibleMove, b, &count, color);
+            initListPossibleMove(listPossibleMove);
+            generateListePossibleMove(listPossibleMove, b, count, color);
 			for (int i = 0; i < *count; ++i)
 			{
 				Board nextBoard = copyBoard(b);
@@ -60,6 +61,8 @@ int moveValue(Board B, Status s, int depth){
             return depth;
         case Playing :
             return (B.whiteCount - B.blackCount);
+        default:
+            exit(0);
     }
 }
 
