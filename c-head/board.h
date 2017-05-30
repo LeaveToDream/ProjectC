@@ -39,5 +39,6 @@ bool removePawn(Board* b, Coord p);
 void display(Board b);
 Board copyBoard(Board b);
 void freeBoard(Board b);
+bool compareCoord(Coord c1, Coord c2);
 
 #endif

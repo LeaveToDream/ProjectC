@@ -5,49 +5,49 @@
 #include "../c-head/ia.h"
 #include "../c-head/board.h"
 
-int negamaxAB_IA(Board b, int A, int B, int depth, int difficulty, Pawn color){
-    int moveValuation, bestValue, alpha, beta;
+ValuedMove negamaxAB_IA(Board b, int A, int B, int depth, int difficulty, Pawn color, Move lastMove){
+    int moveValuation, alpha, beta;
     int* count;
+    ValuedMove bestMove, newMove;
+    bestMove.value = -100;
+    bestMove.move = initMove(initCoord(-1,-1),initCoord(-1,-1));
     alpha = A;
     beta = B;
-	switch(resolveGame(b, lastMove)){
+	switch(resolveGame(&b)){
 		case Bot :
-			return moveValue(Bot, depth);
+			return initValuedMove(moveValue(b, Bot, depth),lastMove);
 		case WhitePlayer :
-			return moveValue(WhitePlayer, depth);
+			return initValuedMove(moveValue(b, WhitePlayer, depth),lastMove);
 		case Draw :
-			return moveValue(Draw, depth);
+			return initValuedMove(moveValue(b, Draw, depth),lastMove);
 		case Playing :
 			if (depth == difficulty){
-				return moveValue(Playing, depth);
+				return initValuedMove(moveValue(b, Playing, depth),lastMove);
 			}
-			bestValue = -100;
-			int count = 0;
+			*count = 0;
 
             Move listPossibleMove[144];
             initListPossibleMove(&listPossibleMove);
             generateListePossibleMove(&listPossibleMove, b, &count, color);
-			for (int i = 0; i < count; ++i)
+			for (int i = 0; i < *count; ++i)
 			{
 				Board nextBoard = copyBoard(b);
                 movePawn(nextBoard, listPossibleMove[i].from, listPossibleMove[i].to);
-				moveValuation = -negamaxAB(nextBoard, -beta, -alpha, depth + 1, difficulty, enemyPawn(couleur));
-                if (moveValuation > bestValue){
-                    bestValue = moveValuation;
-                    if (bestValue > alpha){
-                        alpha = bestValue;
+				newMove = negamaxAB_IA(nextBoard, -beta, -alpha, depth + 1, difficulty, enemyPawn(color), listPossibleMove[i]);
+                newMove.value = -newMove.value;
+                if (moveValuation > bestMove.value){
+                    bestMove.value = moveValuation;
+                    bestMove.move = listPossibleMove[i];
+                    if (bestMove.value > alpha){
+                        alpha = bestMove.value;
                         if (alpha>beta){
-                            return bestValue;
+                            return bestMove;
                         }
                     }
                 }
 			}
-			return bestValue;
+			return bestMove;
 	}
-}
-
-int evaluatePawnPotential(Board B){
-	return (B.whiteCount - B.balckCount);
 }
 
 int moveValue(Board B, Status s, int depth){
@@ -59,7 +59,7 @@ int moveValue(Board B, Status s, int depth){
         case Draw :
             return depth;
         case Playing :
-            return (B.whiteCount - B.balckCount);
+            return (B.whiteCount - B.blackCount);
     }
 }
 
@@ -97,9 +97,9 @@ int generateListePossibleMove(Move* listPossibleMove, Board b, int* count, Pawn 
     }
     for (int k = 0; k < pawnCount; k++) {
         j = 0;
-        while (b.possibleMove[listPawn[k].x][listPawn[k].y][j] != initCoord(-1,-1)){
-            listPossibleMove[count] = initMove(listPawn[k],b.possibleMove[listPawn[k].x][listPawn[k].y][j]);
-            count++;
+        while (!compareCoord(b.possibleMove[listPawn[k].x][listPawn[k].y][j], initCoord(-1,-1))){
+            listPossibleMove[*count] = initMove(listPawn[k],b.possibleMove[listPawn[k].x][listPawn[k].y][j]);
+            (*count)++;
             j++;
         }
     }
@@ -111,4 +111,11 @@ Move initMove(Coord c1, Coord c2){
     m.from = c1;
     m.to = c2;
     return m;
+}
+
+ValuedMove initValuedMove(int value, Move move){
+    ValuedMove res;
+    res.value = value;
+    res.move = move;
+    return res;
 }
