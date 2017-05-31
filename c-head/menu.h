@@ -2,7 +2,11 @@
 #define PROJECTC_MENU_H
 
 #include <SDL2/SDL.h>
+#if defined(__APPLE__ ) && defined(__MACH__)
+#include <SDL2_image/SDL_image.h>
+#else
 #include <SDL2/SDL_image.h>
+#endif
 #include "board.h"
 
 typedef enum EventMenu EventMenu ;

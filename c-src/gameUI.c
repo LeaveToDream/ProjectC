@@ -20,17 +20,21 @@ int playAGameUI(Level level){
     printf("Board instanced\n");
     Resources * res = initRes() ;
     if(res->state==1){
-      printf("Resources loaded\n");
-      winner = gamePvPUI(b, res);
-      if(!(winner==Exit||winner==Home||winner==Restart)){
-          displayWinningColorUI(res, winner);
-          Event event = waitForCardEvent(res);
-          if(event.zone==CARD_RESTART){
+        printf("Resources loaded\n");
+        if (level == ALONE) {
+            winner = gamePvPUI(b, res);
+        } else {
+            winner = gameIAUI(b, res, level);
+        }
+        if(!(winner==Exit||winner==Home||winner==Restart)){
+            displayWinningColorUI(res, winner);
+            Event event = waitForCardEvent(res);
+            if(event.zone==CARD_RESTART){
                 winner=Restart;
-          } else if(event.zone==CARD_HOME){
+            } else if(event.zone==CARD_HOME){
                 winner=Home;
-          }
-      }
+            }
+        }
     }
     printf("Game ended\n");
     freeBoard(b);
@@ -38,11 +42,11 @@ int playAGameUI(Level level){
     freeRes(res);
     printf("Resources cleaned\n");
     if(winner==Exit||winner==Home){
-      return 1;
+        return 1;
     } else if (winner==Restart){
-      return 2;
+        return 2;
     } else {
-      return 0;
+        return 0;
     }
 }
 
@@ -119,6 +123,7 @@ Status gameIAUI(Board b, Resources* res, Level difficulty){
     Coord turnReturn ;
     Status state ;
     displayBoardUI(res, &b);
+    displayBoardUI(res, &b);
     while(true){
         printf("Start of a round\n");
         displayPlayingColorUI(res, White);
@@ -128,6 +133,7 @@ Status gameIAUI(Board b, Resources* res, Level difficulty){
             if((state = resolveGame(&b))!= Playing ){
                 return state ;
             } else {
+                displayBoardUI(res, &b);
                 displayBoardUI(res, &b);
             }
         } else if(turnReturn.x == -1 ){
@@ -154,6 +160,7 @@ Status gameIAUI(Board b, Resources* res, Level difficulty){
             if((state = resolveGame(&b))!= Playing ){
                 return state ;
             } else {
+                displayBoardUI(res, &b);
                 displayBoardUI(res, &b);
             }
         } else {} //TODO debug
@@ -190,6 +197,7 @@ Coord playerTurnUI(Resources* res, Board* b, Pawn side){
                             //targetCoord = initCoord(-1, 0);
                             targetSelected = true ;
                             displayBoardUI(res, b);
+                            displayBoardUI(res, b);
                             displayPlayingColorUI(res, side);
                         } else {
                             targetCoord = eventToCoord(&event);
@@ -208,6 +216,7 @@ Coord playerTurnUI(Resources* res, Board* b, Pawn side){
                     } else if(event.zone==BUTTONS) {
                         if (MYSDL_isInRect(res->buttonPassRect, event)) {
                             //pass
+                            displayBoardUI(res, b);
                             displayBoardUI(res, b);
                             return initCoord(-1, 1);
                         } else if (MYSDL_isInRect(res->buttonGiveUpRect, event)) {

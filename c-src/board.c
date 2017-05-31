@@ -390,13 +390,17 @@ Board copyBoard(Board b){
     }
     // Copying pawn board
     for(int i = 0; i<n;i++){
-        res.board[i]= b.board[i];
+        for (int j = 0; j < n; j++) {
+            res.board[i][i]= b.board[i][j];
+        }
     }
 
     //Copying possibleMove board
     for(int i = 0; i<n;i++){
         for (int j = 0; j < n; j++) {
-            res.possibleMove[i][j]= b.possibleMove[i][j];
+            for (int k = 0; k < 2; k++) {
+                res.possibleMove[i][j][k]= b.possibleMove[i][j][k];
+            }
         }
     }
     return res;
