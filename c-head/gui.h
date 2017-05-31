@@ -72,7 +72,6 @@ void displayPlayingColorUI(Resources* res, Pawn p);
 void displayPossibleMoveUI(Resources* res, Board* b, Coord c);
 Event waitForUsefulEvent(Resources *res);
 Event waitForCardEvent(Resources* res);
-int testUI ();
 Coord eventToCoord(Event* event);
 SDL_Texture* MYSDL_loadImage (const char path[], SDL_Renderer* renderer);
 int MYSDL_init(SDL_Window ** window, SDL_Renderer **renderer, int width, int height );

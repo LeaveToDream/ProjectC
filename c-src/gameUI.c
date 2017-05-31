@@ -150,6 +150,8 @@ Status gameIAUI(Board b, Resources* res, Level difficulty){
                     return Restart ;
                 case 4 : // Home
                     return Home ;
+                default: // Something went wrong
+                    return Playing;
             }
         }
 
@@ -255,7 +257,7 @@ Coord playerTurnUI(Resources* res, Board* b, Pawn side){
 }
 
 Coord IATurnUI(Resources* res, Board* b, Pawn side, Level difficulty) {
-    int maxDepth;
+    int maxDepth = 3;
     Move move = initMove(initCoord(-1, -1), initCoord(-1, -1));
     if (difficulty == EASY) {
         maxDepth = 1;
@@ -272,5 +274,7 @@ Coord IATurnUI(Resources* res, Board* b, Pawn side, Level difficulty) {
     if (checkMove) {
         resolveMove(b, IAMove.move.to);
         return IAMove.move.to;
+    } else {
+        return initCoord(-1,0);
     }
 }

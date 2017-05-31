@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "../c-head/rules.h"
 #include "../c-head/gui.h"
 
@@ -10,7 +12,7 @@ ResourcesRules* initResRules() {
   res->state = 1;
   if(MYSDL_init(&(res->window), &(res->renderer), SCREEN_WIDTH_R, SCREEN_HEIGHT_R) == 0) {
     res->back = MYSDL_loadImage("../c-res/rules.png", res->renderer);
-    if(!(res->back==NULL)){
+    if(res->back!=NULL){
       res->quit = rect(700,570,130,50);
       return res;
     }else{

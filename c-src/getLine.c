@@ -12,7 +12,7 @@ char *My_gets(char * str) {
         if ((l > 0) && (buffer[l-1] == '\n')) {
             l--;
         }
-        memcpy(str, buffer, l);
+        memcpy(str, buffer, (size_t) l);
         str[l] = '\0';
         return str;
     }

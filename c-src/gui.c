@@ -271,22 +271,6 @@ Coord eventToCoord(Event* event){
     return initCoord((event->y-BOARD_Y_ORIG)/60,(event->x-BOARD_X_ORIG)/60);
 }
 
-int testUI (){
-    Resources * res = initRes() ;
-    Board board = initBoard();
-    Board* b = &board ;
-    fillBoard(board);
-    displayBoardUI(res, b);
-    displayPossibleMoveUI(res, b, initCoord(0,0));
-    displayPlayingColorUI(res, White);
-    SDL_Delay(10000);
-
-    freeRes(res);
-
-    return 0 ;
-}
-
-
 int MYSDL_init(SDL_Window ** window, SDL_Renderer **renderer, int width, int height ){
 
     if(0 != SDL_Init(SDL_INIT_EVERYTHING)) {
