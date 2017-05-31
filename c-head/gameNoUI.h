@@ -8,7 +8,6 @@
 
 int playAGame();
 Status gamePvP(Board b);
-Level getDifficulty();
 Coord playerTurn(Board* b, Pawn side);
 void rules();
 char numberToLetter(int n);

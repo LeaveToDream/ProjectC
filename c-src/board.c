@@ -223,6 +223,7 @@ bool removePawn(Board *b, Coord p){
                 break;
             case Black :
                 (b->blackCount)--;
+                break;
             case None :
                 return false;
         }

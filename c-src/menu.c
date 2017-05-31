@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "../c-head/menu.h"
 #include "../c-head/gui.h"
 
@@ -10,7 +12,7 @@ ResourcesMenu* initResMenu() {
   menu->state = 1;
   if(MYSDL_init(&(menu->window), &(menu->renderer), SCREEN_WIDTH_M, SCREEN_HEIGHT_M) == 0) {
     menu-> backMenu = MYSDL_loadImage("../c-res/menu.png", menu->renderer);
-    if(!(menu->backMenu==NULL)){
+    if(menu->backMenu!=NULL){
       menu->play = rect(160,240,190,45);
       menu->button_f = rect(235,340,180,35);
       menu->button_m = rect(235,380,220,35);
@@ -32,7 +34,7 @@ ResourcesMenu* initResMenu() {
 
 EventMenu waitForMenuEvent(ResourcesMenu* menu){
     SDL_Event events ;
-    EventMenu event ;
+    EventMenu event = QUITMENU;
     int x,y ;
     printf("Waiting for menu event ");
     bool usefullEventAppeared = false ;
@@ -43,7 +45,6 @@ EventMenu waitForMenuEvent(ResourcesMenu* menu){
             case SDL_QUIT:
                 printf("\nQUIT CMD\n");
                 fflush(stdout);
-                event = QUITMENU;
                 usefullEventAppeared = true ;
                 break;
             case SDL_MOUSEBUTTONDOWN:
@@ -71,7 +72,6 @@ EventMenu waitForMenuEvent(ResourcesMenu* menu){
                     usefullEventAppeared = true ;
                 }else if(MYSDL_PointingRect(menu->quit, x, y)){
                     printf("\nQUIT CMD\n");
-                    event = QUITMENU ;
                     usefullEventAppeared = true ;
                 }
                 break;

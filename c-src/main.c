@@ -6,10 +6,8 @@
 #include "../c-head/gameNoUI.h"
 #include "../c-head/gameUI.h"
 #include "../c-head/getLine.h"
-#include "../c-head/gui.h"
 #include "../c-head/menu.h"
 #include "../c-head/rules.h"
-#include "../c-head/board.h"
 
 int main(int argc, char* argv[]){
   bool running=true;
@@ -22,6 +20,7 @@ int main(int argc, char* argv[]){
       freeMenu(res);
       do{
           retour = gameUI(ALONE);
+          SDL_Delay(200);
       }while(retour==2);
       res=initResMenu();
       displayMenu(res);
@@ -29,6 +28,7 @@ int main(int argc, char* argv[]){
       freeMenu(res);
       do{
           retour = gameUI(EASY);
+          SDL_Delay(200);
       }while(retour==2);
       res=initResMenu();
       displayMenu(res);
@@ -36,14 +36,16 @@ int main(int argc, char* argv[]){
       freeMenu(res);
       do{
           retour = gameUI(NORMAL);
+          SDL_Delay(200);
       }while(retour==2);
       res=initResMenu();
       displayMenu(res);
-      res=initResMenu(res);
+      res=initResMenu();
     }else if (event==BUTTON_D){
       freeMenu(res);
       do{
           retour = gameUI(HARD);
+          SDL_Delay(200);
       }while(retour==2);
       res=initResMenu();
       displayMenu(res);
@@ -78,7 +80,14 @@ int oldMain (int argc, char* argv[]){
           help();
       } else if(strcmp("gameUI",input)==0){
           do{
-              retour = gameUI();
+              retour = gameUI(ALONE);
+          }while(retour==2);
+          if(retour == 1){
+              return 0;
+          }
+      }else if(strcmp("gameIA",input)==0){
+          do{
+              retour = gameUI(NORMAL);
           }while(retour==2);
           if(retour == 1){
               return 0;

@@ -3,17 +3,14 @@
 //
 
 #include <stdio.h>
-#include <string.h>
 #include <stdbool.h>
 
 #include "../c-head/gameUI.h"
-#include "../c-head/board.h"
-#include "../c-head/gui.h"
 
 
-int playAGameUI(){
+int playAGameUI(Level level){
     // Initialise board, and fill it with pawn of the right color at the right location
-    Status winner ;
+    Status winner = Exit;
     printf("Starting a new game\n");
     Board b = initBoard();
     b = fillBoard(b);
@@ -26,12 +23,9 @@ int playAGameUI(){
           displayWinningColorUI(res, winner);
           Event event = waitForCardEvent(res);
           if(event.zone==CARD_RESTART){
-              printf("Game ended\n");
-              freeBoard(b);
-              printf("Board cleaned\n");
-              freeRes(res);
-              printf("Resources cleaned\n");
-              return 2;
+                winner=Restart;
+          } else if(event.zone==CARD_HOME){
+                winner=Home;
           }
       }
     }
@@ -81,6 +75,8 @@ Status gamePvPUI(Board b, Resources* res){
                     return Restart ;
                 case 4 : // Home
                     return Home ;
+                default: // Something went wrong
+                    return Playing;
             }
         }
 
@@ -108,6 +104,8 @@ Status gamePvPUI(Board b, Resources* res){
                     return Restart ;
                 case 4 : // Home
                     return Home ;
+                default: // Something went wrong
+                    return Playing;
             }
         }
     }
@@ -140,7 +138,7 @@ Coord playerTurnUI(Resources* res, Board* b, Pawn side){
                         return initCoord(-1,4) ;
                     } else if(event.zone==BOARD){
                         if(event.type==RIGHT_CLICK){
-                            targetCoord = initCoord(-1, 0);
+                            //targetCoord = initCoord(-1, 0);
                             targetSelected = true ;
                             displayBoardUI(res, b);
                             displayPlayingColorUI(res, side);
