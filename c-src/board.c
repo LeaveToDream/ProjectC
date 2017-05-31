@@ -360,6 +360,7 @@ bool resolveMove(Board* b, Coord p){
             tempBool = removePawn(b, toSup[l]);
             if (tempBool){
                 refreshPMAfterMove(*b, toSup[l]);
+                printf("coucou");
             } else {
                 ret = false ;
             }
@@ -391,14 +392,14 @@ Board copyBoard(Board b){
     // Copying pawn board
     for(int i = 0; i<n;i++){
         for (int j = 0; j < n; j++) {
-            res.board[i][i]= b.board[i][j];
+            res.board[i][j]=b.board[i][j];
         }
     }
 
     //Copying possibleMove board
     for(int i = 0; i<n;i++){
         for (int j = 0; j < n; j++) {
-            for (int k = 0; k < 2; k++) {
+            for (int k = 0; k < 2*n; k++) {
                 res.possibleMove[i][j][k]= b.possibleMove[i][j][k];
             }
         }

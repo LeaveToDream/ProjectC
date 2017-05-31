@@ -40,7 +40,6 @@ int main(int argc, char* argv[]){
       }while(retour==2);
       res=initResMenu();
       displayMenu(res);
-      res=initResMenu();
     }else if (event==BUTTON_D){
       freeMenu(res);
       do{
