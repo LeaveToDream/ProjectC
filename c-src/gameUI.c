@@ -267,6 +267,7 @@ Coord IATurnUI(Resources* res, Board* b, Pawn side, Level difficulty) {
         maxDepth = 5;
     }
     ValuedMove IAMove = negamaxAB_IA(*b, -100, 100, 0, maxDepth, Black, move);
+    SDL_Delay(1000);
     bool checkMove = movePawn(*b, IAMove.move.from, IAMove.move.to);
     if (checkMove) {
         resolveMove(b, IAMove.move.to);
