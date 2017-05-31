@@ -1,5 +1,5 @@
-#include <stdlib.h>
 
+#include <stdlib.h>
 #include "../c-head/menu.h"
 #include "../c-head/gui.h"
 

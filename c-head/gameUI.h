@@ -6,6 +6,8 @@
 
 int playAGameUI(Level level);
 Status gamePvPUI(Board b, Resources* res);
+Status gameIAUI(Board b, Resources* res, Level difficulty);
 Coord playerTurnUI(Resources* res, Board* b, Pawn side);
+Coord IATurnUI(Resources* res, Board* b, Pawn side, Level difficulty);
 
 #endif

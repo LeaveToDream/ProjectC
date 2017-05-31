@@ -400,7 +400,7 @@ Board copyBoard(Board b){
         }
     }
     return res;
-};
+}
 
 void freeBoard(Board b){
     int n = b.length;
@@ -418,4 +418,8 @@ void freeBoard(Board b){
         free(b.possibleMove[i]);
     }
     free(b.possibleMove);
+}
+
+bool compareCoord(Coord c1, Coord c2){
+    return ((c1.x == c2.x)&&(c1.y == c2.y));
 }

@@ -114,7 +114,7 @@ void displayBoardUI(Resources* res, Board* b){
             }
         }
     }
-    SDL_RenderPresent(res->renderer); // Display everything that was painted on it
+    SDL_RenderPresent(res->renderer); // Display everything that was painted on renderer
 }
 
 Event waitForUsefulEvent(Resources *res){
