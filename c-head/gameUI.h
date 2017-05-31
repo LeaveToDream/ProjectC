@@ -4,7 +4,7 @@
 #include "../c-head/board.h"
 #include "../c-head/gui.h"
 
-int playAGameUI(Level difficulty);
+int playAGameUI(Level level);
 Status gamePvPUI(Board b, Resources* res);
 Status gameIAUI(Board b, Resources* res, Level difficulty);
 Coord playerTurnUI(Resources* res, Board* b, Pawn side);

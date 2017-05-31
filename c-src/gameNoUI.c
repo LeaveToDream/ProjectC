@@ -56,10 +56,6 @@ int playAGame(){
     return 0;
 }
 
-Level getDifficulty(){
-    return NORMAL ;
-}
-
 Status gamePvP(Board b){
     int passCount = 0 ;
     int n = 0 ;
@@ -96,6 +92,8 @@ Status gamePvP(Board b){
                     return BlackPlayer ;
                 case 3 : // Hard quit
                     return Exit ;
+                default: // Something went wrong
+                    return Playing ;
             }
         }
 
@@ -126,6 +124,8 @@ Status gamePvP(Board b){
                     return WhitePlayer ;
                 case 3 : // Hard quit
                     return Exit ;
+                default: // Something went wrong
+                    return Playing ;
             }
         }
     }

@@ -23,10 +23,8 @@ c-out/getLine.o : c-out c-src/getLine.c
 c-out/gui.o : c-src/gui.c
 	gcc -Wall -c c-src/gui.c -o c-out/gui.o
 
-
 c-out/menu.o : c-src/menu.c
 	gcc -Wall -c c-src/menu.c -o c-out/menu.o
-
 
 c-out/rules.o : c-src/rules.c
 	gcc -Wall -c c-src/rules.c -o c-out/rules.o

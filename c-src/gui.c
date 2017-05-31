@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <memory.h>
 #include <stdbool.h>
 #include <SDL2/SDL.h>
 
@@ -274,7 +273,7 @@ Coord eventToCoord(Event* event){
 
 int testUI (){
     Resources * res = initRes() ;
-    Board board = initBoard(NORMAL);
+    Board board = initBoard();
     Board* b = &board ;
     fillBoard(board);
     displayBoardUI(res, b);

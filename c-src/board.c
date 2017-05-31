@@ -223,6 +223,9 @@ bool removePawn(Board *b, Coord p){
                 break;
             case Black :
                 (b->blackCount)--;
+                break;
+            case None :
+                return false;
         }
         b->board[p.x][p.y]=None;
         //printf("Pawn eaten at location %c%d\n", numberToLetter(p.x), p.y);

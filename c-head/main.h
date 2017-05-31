@@ -2,11 +2,11 @@
 #ifndef __MAIN__
 #define __MAIN__
 
-char getCharClean();
+#include "board.h"
 
 void wrong();
 void help();
 int game();
-int gameUI();
+int gameUI(Level difficulty);
 
 #endif

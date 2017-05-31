@@ -136,6 +136,7 @@ void initListPossibleMove(Move* listPossibleMove){
     }
 }
 
+
 //Inutile
 /*
 int generateListePossibleMove(Move* listPossibleMove, Board b, int* count, Pawn color){
@@ -171,13 +172,16 @@ int generateListePossibleMove(Move* listPossibleMove, Board b, int* count, Pawn 
         }
     }
     return 0;
+
 }*/
 
 //Inutile
 /*
+
 Move initMove(Coord c1, Coord c2){
     Move m;
     m.from = c1;
     m.to = c2;
     return m;
+
 }*/
