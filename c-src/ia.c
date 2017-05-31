@@ -7,6 +7,16 @@
 #include "../c-head/ia.h"
 #include "../c-head/board.h"
 
+/* Core function of negamax algorithm. Compute the best move possible for the IA to play with a vision of depth move in
+ * advance
+ * Param :
+ * - board : the board
+ * - A and B two integer, bound for negamax
+ * - depth : actual depth
+ * - difficulty : the maximum of round that the algorithm can compute in advance
+ * - color : the playing color
+ * - lastMove : the last move to remember what move have been choosen
+ * Return the best move possible */
 ValuedMove negamaxAB_IA(Board b, int A, int B, int depth, int difficulty, Pawn color, Move lastMove){
     int alpha, beta, countBestMove = 1;
     int count = 0;
@@ -63,6 +73,7 @@ ValuedMove negamaxAB_IA(Board b, int A, int B, int depth, int difficulty, Pawn c
 	}
 }
 
+/* Compute the value of a move */
 int moveValue(Board B, Status s, int depth){
     switch(s){
         case Bot :
@@ -80,6 +91,8 @@ int moveValue(Board B, Status s, int depth){
     }
 }
 
+
+/* Prepare a list to store a list of all the move available to a player */
 void initListPossibleMove(Move* listPossibleMove){
     Coord empty = initCoord(-1,-1);
     for (int i = 0; i < 144; i++) {
@@ -87,7 +100,7 @@ void initListPossibleMove(Move* listPossibleMove){
     }
 }
 
-
+/* Fill the list of all the move available with the possible moves, and return the number of moves available for player */
 int generateListePossibleMove(Move* listPossibleMove, Board b, Pawn color){
     Coord listPawn[9];
     int pawnCount = 0;
@@ -122,6 +135,7 @@ int generateListePossibleMove(Move* listPossibleMove, Board b, Pawn color){
     return count;
 }
 
+/* Initialize a Move (Coordinate of departure and arrival) */
 Move initMove(Coord c1, Coord c2){
     Move m;
     m.from = c1;
@@ -129,6 +143,7 @@ Move initMove(Coord c1, Coord c2){
     return m;
 }
 
+/* Initialize a ValuedMove (A move and it's value) */
 ValuedMove initValuedMove(int value, Move move){
     ValuedMove res;
     res.value = value;
