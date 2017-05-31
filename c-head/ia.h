@@ -25,8 +25,7 @@ ValuedMove negamaxAB_IA(Board b, int A, int B, int depth, int difficulty, Pawn c
 
 int moveValue(Board B, Status s, int depth);
 void initListPossibleMove(Move* listPossibleMove);
-int generateListePossibleMove(Move* listPossibleMove, Board b, int* count, Pawn color);
-
+int generateListePossibleMove(Move* listPossibleMove, Board b, Pawn color);
 Move initMove(Coord c1, Coord c2);
 ValuedMove initValuedMove(int value, Move move);
 

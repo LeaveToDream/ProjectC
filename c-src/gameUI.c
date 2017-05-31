@@ -258,13 +258,13 @@ Coord IATurnUI(Resources* res, Board* b, Pawn side, Level difficulty) {
     int maxDepth;
     Move move = initMove(initCoord(-1, -1), initCoord(-1, -1));
     if (difficulty == EASY) {
-        maxDepth = 2;
+        maxDepth = 1;
     }
     if (difficulty == NORMAL) {
-        maxDepth = 2;
+        maxDepth = 3;
     }
     if (difficulty == HARD) {
-        maxDepth = 2;
+        maxDepth = 5;
     }
     ValuedMove IAMove = negamaxAB_IA(*b, -100, 100, 0, maxDepth, Black, move);
     bool checkMove = movePawn(*b, IAMove.move.from, IAMove.move.to);
